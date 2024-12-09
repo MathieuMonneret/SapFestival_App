@@ -84,7 +84,7 @@ const ScheduleScreen = () => {
     </View>
   )
 
-  const renderCalendarItem = ({ item }) => (
+  const renderCalendarItem = ({ item }:{item: typeof events}) => (
     <TouchableWithoutFeedback onPress={() => navigation.navigate("artists", { focusArtist: item.id })}>
 
       <View style={styles.eventItem}>
