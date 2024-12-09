@@ -1,6 +1,6 @@
-# Welcome to your Expo app 👋
+# Welcome to the SAP Festival app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an Application project created with Expo and ReactNative. The goal is to create an app for a music festival to display all important information to the customer throughout the weekend.
 
 ## Get started
 

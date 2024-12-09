@@ -1,9 +1,12 @@
 import { Tabs } from 'expo-router';
-
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import { useNavigation } from '@react-navigation/native';
 
 export default function TabLayout() {
+
+  const navigation = useNavigation();
+
   return (
     <Tabs
       screenOptions={{
@@ -11,6 +14,7 @@ export default function TabLayout() {
         headerStyle: {
           backgroundColor: '#F2C9E0',
         },
+        headerShown: false,
         headerShadowVisible: false,
         headerTintColor: '#F2784B',
         tabBarStyle: {
@@ -46,9 +50,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="activities"
+        options={{
+          title: 'Activités',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'trophy' : 'trophy-outline'} color={color} size={24}/>
+          ),
+        }}
+      />
+      {/*<Tabs.Screen
         name="food"
         options={{
           title: 'Menu',
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'fast-food' : 'fast-food-outline'} color={color} size={24}/>
           ),
@@ -58,17 +72,19 @@ export default function TabLayout() {
         name="map"
         options={{
           title: 'Plan',
+          tabBarStyle: { display: 'none' },
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'map' : 'map-outline'} color={color} size={24}/>
           ),
         }}
       />
+      */}
       <Tabs.Screen
         name="about"
         options={{
           title: 'Info',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'settings' : 'settings-outline'} color={color} size={24}/>
+            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24} />
           ),
         }}
       />
