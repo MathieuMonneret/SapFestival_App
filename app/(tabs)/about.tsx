@@ -1,54 +1,127 @@
-
-import { Text, View, StyleSheet } from 'react-native';
-import Button from '@/components/Button';
-import ImageViewer from "@/components/ImageViewer";
-
-const PlaceholderImage = require('@/assets/images/Ecusson + Stickers.png');
-
-export default function AboutScreen() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <ImageViewer imgSource={PlaceholderImage} />
-      </View>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F2C9E0',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#fff',
-  },
-  imageContainer: {
-    flex: 1,
-  },
-});
-
-/*
 import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { DrawerActions } from '@react-navigation/routers';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function About() {
-  const navigation = useNavigation();
-
-  // Fonction pour ouvrir le Drawer
-  const openDrawer = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
+const AboutScreen = () => {
+  const handleMenuPress = () => {
+    alert('Menu détaillé bientôt disponible!');
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Button title="Open Drawer" onPress={openDrawer} />
-      <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20 }}>About Page</Text>
-    </View>
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+      <ScrollView style={styles.container}>
+        <View style={styles.section}>
+          <Text style={styles.cardTitle}>Plan d'accès</Text>
+          <Image
+            source={require('@/assets/images/plan.jpg')} 
+            style={styles.mapImage}
+            resizeMode="contain"
+          />
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.cardTitle}>Règles à respecter</Text>
+          <Text style={styles.rulesText}>
+            - Respectez l'environnement et ramassez vos déchets. {"\n"}
+            - Respectez le silence sur le camping. {"\n"}
+            - Respectez les personnes et leurs consentement. {"\n"}
+            - Toute sortie est définitive.
+          </Text>
+        </View>
+
+        <View style={styles.card}>
+          <Ionicons name="fast-food-outline" size={48} color="#F2784B" style={styles.cardIcon} />
+          <Text style={styles.cardTitle}>Menu & Boissons</Text>
+          <Text style={styles.cardText}>
+            🌭 Pad Thai {"\n"}
+            🍔 Burgers végé {"\n"}
+            🍟 Frites {"\n"}
+            🍺 Bières Blondes {"\n"}
+            🍹 Cocktails signature{"\n"}
+            🥤 Sodas et jus frais
+          </Text>
+          <TouchableOpacity style={styles.cardButton} onPress={handleMenuPress}>
+            <Text style={styles.cardButtonText}>Voir le menu complet</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ height: 50 }} />
+      </ScrollView>
+    </SafeAreaView>
   );
-}
-*/
+};
+
+export default AboutScreen;
+
+const styles = StyleSheet.create({
+  safeAreaViewContainer: {
+    backgroundColor: '#F2C9E0',
+  },
+  container: {
+    padding:24,
+  },
+  section: {
+    marginBottom: 20,
+    padding: 16,
+    backgroundColor: '#F9F2EA',
+    borderRadius: 10,
+    marginHorizontal: 10,
+    elevation: 5,
+    paddingBottom: 20,
+    paddingTop: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#F2784B',
+    marginBottom: 10,
+  },
+  mapImage: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+  },
+  rulesText: {
+    fontSize: 16,
+    color: '#25292e',
+    lineHeight: 24,
+  },
+  card: {
+    marginHorizontal: 10,
+    padding: 20,
+    backgroundColor: '#FFF5E4',
+    borderRadius: 15,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  cardIcon: {
+    marginBottom: 10,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#F2784B',
+    marginBottom: 10,
+  },
+  cardText: {
+    fontSize: 16,
+    color: '#25292e',
+    lineHeight: 24,
+    textAlign: 'center',
+  },
+  cardButton: {
+    marginTop: 20,
+    backgroundColor: '#F2784B',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  cardButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
