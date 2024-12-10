@@ -2,7 +2,11 @@
 
 This is an Application project created with Expo and ReactNative. The goal is to create an app for a music festival to display all important information to the customer throughout the weekend.
 
+
+
 ## Get started
+
+To build this app I used Expo and react native. 
 
 1. Install dependencies
 
@@ -23,28 +27,26 @@ In the output, you'll find options to open the app in a
 - [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
 - [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+This project uses React navigation and React navigation Stack :
 
 ```bash
-npm run reset-project
+   npm install @react-navigation/native
+```
+We also use tabs and a simple tab bar on the bottom of the screen that lets you switch between different routes or screens.
+```bash 
+   npm install @react-navigation/bottom-tabs
+   npm install react-native-screens react-native-safe-area-context
+```
+Stack is used to transition between screens where each new screen is placed on top of a stack. 
+
+```bash
+   npm install @react-navigation/stack
+   npm install react-native-gesture-handler
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+This project uses [file-based routing](https://docs.expo.dev/router/introduction). That you can install with :  
 
-## Learn more
+```bash
+ npx expo install expo-router expo-linking expo-constants expo-status-bar
+```
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.

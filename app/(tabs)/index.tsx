@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableWithoutFeedback,Image } from 'react-na
 import ImageViewer from "@/components/ImageViewer";
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "@/types"; // Mettez à jour le chemin si nécessaire
+import type { RootStackParamList } from "@/types"; 
 import Ionicons from '@expo/vector-icons/Ionicons';
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;
 

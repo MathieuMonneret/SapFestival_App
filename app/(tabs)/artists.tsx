@@ -54,7 +54,7 @@ const artists: Artist[] = [
     useEffect(() => {
         if (focusArtist) {
           const id = parseInt(focusArtist as string, 10);
-          const targetOffset = offsets[id]; // Position exacte de l'artiste
+          const targetOffset = offsets[id];
       if (targetOffset !== undefined && scrollViewRef.current) {
         scrollViewRef.current.scrollTo({ y: targetOffset, animated: true });
       }
