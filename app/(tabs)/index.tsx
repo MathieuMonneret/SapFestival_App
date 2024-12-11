@@ -6,13 +6,22 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "@/types"; 
 import Ionicons from '@expo/vector-icons/Ionicons';
-type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;
+type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;  // this is require to navigate to the folder "/(tabs)" and then any linked screen when cliking on a "Touchable", 
 
-const PlaceholderImage = require('@/assets/images/Ecusson + Stickers.png');
+const PlaceholderImage = require('@/assets/images/Ecusson + Stickers.png'); //path of the image to display
 
+
+/*** 
+ * Definition of the Home screen display
+ * 
+ * ***/
 const HomeScreen = () => {
-  const navigation = useNavigation<NavigationProps>();
 
+  const navigation = useNavigation<NavigationProps>(); // enable navigation
+
+
+  // define data used in the "touchable", 
+  //       -> "route" is the name of the screen we should navigate to 
   const cards = [
     {
       title: "Timetable",
@@ -36,13 +45,15 @@ const HomeScreen = () => {
     },
   ];
 
+  // define how all class and container will work together in the screen
+  //// on press the touchable activate the navigation 
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image source={PlaceholderImage} style={styles.image} />
       </View>
        {cards.map((card, index) => (
-          <TouchableWithoutFeedback key={index} onPress={() => navigation.navigate(card.route as keyof RootStackParamList)} >
+          <TouchableWithoutFeedback key={index} onPress={() => navigation.navigate(card.route as keyof RootStackParamList)} > 
             <View style={styles.card}>
               <Ionicons name={card.icon} size={48} color="#F2784B" />
               <Text style={styles.cardText}>{card.title}</Text>
@@ -53,6 +64,10 @@ const HomeScreen = () => {
   );
 };
 
+
+/*
+How it is going to look like, color and shapes 
+*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,

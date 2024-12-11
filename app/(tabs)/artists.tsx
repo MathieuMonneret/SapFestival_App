@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { StyleSheet,SafeAreaView,ScrollView, Text, TouchableOpacity, View,Image,} from 'react-native';
 import { useRoute } from '@react-navigation/native';
-import { useLocalSearchParams } from 'expo-router';
-import imageMapperArtist from '@/components/imageMapper';
+import { useLocalSearchParams } from 'expo-router'; // used to search in the page, the param
+import imageMapper from '@/components/imageMapper'; //  image mapper reference all pictures without having to enter the complete path
 
-
+//define the data artist 
 type Artist = {
     id: number;
     name: string;
@@ -15,7 +15,7 @@ type Artist = {
   };
 
 
-
+// define the array of artists
 const artists: Artist[] = [
     { id: 1, name: 'Happy Guru', bio: 'Une fois de plus en terres promises, le duo iconique du SAP Festival, Happy Guru, se présentera pour fêter ensemble l’ouverture du SAP 4.0. Sur des aires groovys, préparez-vous à un set funky annonçant une soirée intense et exceptionnelle', image:'HAPPY_GURU.png', duration: 'Vendredi 21h-22h', style:'Tech-House' },
     { id: 2, name: 'HCC x Guizly', bio: 'Guizly, résident permanent des montagnes grenobloises, s’associe avec High Cannabis Cookies pour une performance live reggae dub conçu spécialement pour le SAP festival. Inspiré par la musique africaine et la culture reggae, HCC vous fera vibrer avec ses pads et djembés, créant un groove profond et enivrant. Ensemble, ils vous invitent à danser pieds nus sur des rythmes envoûtants et des gros synthés, promettant une rencontre inoubliable avec Jah au cœur des Alpes.', image:'HCC GUIZLY.png', duration: 'Vendredi 22h-23h', style:'Dub' },
@@ -40,17 +40,22 @@ const artists: Artist[] = [
 
   ];
 
+
+  // the function of the artist screen
  export default function ArtistsScreen() {
 
-    const { focusArtist } = useLocalSearchParams();
-    const scrollViewRef = useRef<ScrollView>(null);
-    const [offsets, setOffsets] = useState<{ [key: number]: number }>({});
+    const { focusArtist } = useLocalSearchParams(); // if we arrive on this screen after the touchable on press from the calender we have a param "focusArtist"
+    const scrollViewRef = useRef<ScrollView>(null); // enable scrolling
+    const [offsets, setOffsets] = useState<{ [key: number]: number }>({}); // tool used to auto scroll to the artist in the param 
     
+    // calculate the exact position of every artist container in the layout compare to the previous artist thanks to their ids. 
+    // in order to help with the auto scrolling 
     const handleLayout = (id: number, event: any) => {
       const offsetY = event.nativeEvent.layout.y;
       setOffsets((prev) => ({ ...prev, [id]: offsetY }));
     };
 
+    // compute the auto scrolling with the param we get from the navigation
     useEffect(() => {
         if (focusArtist) {
           const id = parseInt(focusArtist as string, 10);
@@ -70,7 +75,7 @@ const artists: Artist[] = [
                   <View style={styles.cardTop}>
                     <Image alt=""
                       resizeMode="cover"
-                      source={imageMapperArtist[image]}
+                      source={imageMapper[image]}
                       style={styles.cardImg} />
                     <View style={styles.cardTopPills}>
                       <View style={[styles.cardTopPill, { paddingLeft: 6 }]}>
@@ -94,6 +99,10 @@ const artists: Artist[] = [
     </SafeAreaView>
   );
 }
+
+/*
+How it is going to look like, color and shapes 
+*/
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
     backgroundColor: '#F2C9E0',
@@ -107,7 +116,6 @@ const styles = StyleSheet.create({
     color: '#1d1d1d',
     marginBottom: 12,
   },
-  /** Card */
   card: {
     padding: 12,
     borderRadius: 24,

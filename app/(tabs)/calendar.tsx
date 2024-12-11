@@ -5,8 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "@/types";
 
-type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)/artists">;
+type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)/artists">;// this is require to navigate to the screen "/(tabs)/artist" when cliking on a "Touchable", 
 
+// define type of data for Event object
 type Event = {
   id: number
   startTime: string;
@@ -16,20 +17,26 @@ type Event = {
   bgColor: string,
 };
 
+//Events is an array of "Event" with date as Key
 type Events = {
   [date: string]: Event[];
 };
 
+//create an array of the days for the TopBar Header
 const days = [
   { id: '2025-07-04', weekday: 'Vendredi - Night' },
   { id: '2025-07-05', weekday: 'Samedi - Day' },
-  { id: '2024-07-05', weekday: 'Samedi - Night' },
+  { id: '2024-07-05', weekday: 'Samedi - Night' }, //2024 in order to avoid duplicate with same day in 2025
 ];
 
 const ScheduleScreen = () => {
-  const [selectedDayId, setSelectedDayId] = useState<string>('2025-07-04');
-  const navigation = useNavigation<NavigationProps>();
+  const [selectedDayId, setSelectedDayId] = useState<string>('2025-07-04'); // default day selected
+  const navigation = useNavigation<NavigationProps>(); // used to navigate to other screen when clicking on touchable
 
+
+  /**
+   * define the "Events" array with the same date as in "days" as key, and "Event" as value
+   */
   const events: Events = {
     '2025-07-04': [
       { id: 1, startTime: '21:00', endTime:'22:00', artistName: 'Happy Guru', musicStyle: 'Tech-House', bgColor:'#E6E6FA'},
@@ -58,9 +65,15 @@ const ScheduleScreen = () => {
       { id: 20, startTime: '04:30', endTime:'06:00', artistName: 'Soapmalin', musicStyle: 'Tech-House', bgColor:'#FAFAD2'},
     ],
   };
-
+  
+  /**
+  * We select only on of the date of the days array and display the according value of the Events array 
+  */
   const selectedEvents: Event[] = events[selectedDayId] || [];
 
+
+  // define the Header function
+  //// The touchable on press enable to modify the selectedDayId and so key and value of "Events" 
   const renderDayHeader = () => (
     <View style={styles.cardHeader}>
       <View style={styles.daysContainer}>
@@ -83,7 +96,9 @@ const ScheduleScreen = () => {
       </View>
     </View>
   )
-
+  
+  // define the calendar function
+  /// The touchable on press enable to navigate to the artist selected with a param "id of artist"
   const renderCalendarItem = ({ item }:{item: typeof events}) => (
     <TouchableWithoutFeedback onPress={() => navigation.navigate("artists", { focusArtist: item.id })}>
 
@@ -125,6 +140,9 @@ const ScheduleScreen = () => {
   
 };
 
+/*
+How it is going to look like, color and shapes 
+*/
 const styles = StyleSheet.create({
   container: {
     flex:1,

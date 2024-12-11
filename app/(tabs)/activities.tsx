@@ -74,6 +74,9 @@ export default function ActivityScreen() {
   );
 }
 
+/*
+How it is going to look like, color and shapes 
+*/
 const styles = StyleSheet.create({
   container: {
     flex: 1,
