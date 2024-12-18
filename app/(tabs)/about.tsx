@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import FullScreenImageModal from '@/components/imageModal';
 
 const AboutScreen = () => {
   const handleMenuPress = () => {
@@ -22,9 +23,9 @@ const AboutScreen = () => {
         <View style={styles.section}>
           <Text style={styles.cardTitle}>Règles à respecter</Text>
           <Text style={styles.rulesText}>
-            - Respectez l'environnement et ramassez vos déchets. {"\n"}
-            - Respectez le silence sur le camping. {"\n"}
-            - Respectez les personnes et leurs consentement. {"\n"}
+            - Ramassez vos déchets {"\n"}
+            - Respectez le silence sur le camping {"\n"}
+            - Respectez les personnes et leurs consentement {"\n"}
             - Toute sortie est définitive.
           </Text>
         </View>
@@ -40,9 +41,7 @@ const AboutScreen = () => {
             🍹 Cocktails signature{"\n"}
             🥤 Sodas et jus frais
           </Text>
-          <TouchableOpacity style={styles.cardButton} onPress={handleMenuPress}>
-            <Text style={styles.cardButtonText}>Voir le menu complet</Text>
-          </TouchableOpacity>
+          <FullScreenImageModal />// Ferme le modal
         </View>
         <View style={{ height: 50 }} />
       </ScrollView>
@@ -111,6 +110,7 @@ const styles = StyleSheet.create({
     color: '#25292e',
     lineHeight: 24,
     textAlign: 'center',
+    paddingBottom:10,
   },
   cardButton: {
     marginTop: 20,
