@@ -41,7 +41,10 @@ const AboutScreen = () => {
             🍹 Cocktails signature{"\n"}
             🥤 Sodas et jus frais
           </Text>
-          <FullScreenImageModal />// Ferme le modal
+          <FullScreenImageModal  // call the component imageModal that enable to display a button and onPress a full screen image 
+            buttonText="Voir le menu complet"
+            imageSource={require('@/assets/images/menu-food.png')}
+          />
         </View>
         <View style={{ height: 50 }} />
       </ScrollView>

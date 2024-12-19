@@ -9,7 +9,12 @@ import {
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function AboutScreen() {
+interface FullScreenImageModalProps {
+  buttonText: string; // Texte du bouton
+  imageSource: any; // Source de l'image
+}
+
+export default function FullScreenImageModal({ buttonText, imageSource }: FullScreenImageModalProps) {  
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleMenuPress = () => {
@@ -21,16 +26,16 @@ export default function AboutScreen() {
   };
 
   return (
-    <View style={styles.container}>
-        <TouchableOpacity style={styles.cardButton} onPress={handleMenuPress}>
-        <Text style={styles.cardButtonText}>Voir le menu complet</Text>
+    <View>
+      <TouchableOpacity style={styles.cardButton} onPress={handleMenuPress}>
+        <Text style={styles.cardButtonText}>{buttonText}</Text>
       </TouchableOpacity>
 
       <Modal
         visible={isModalVisible}
         transparent={true}
         animationType="slide"
-        onRequestClose={handleCloseModal} // Gestion de la fermeture sur Android
+        onRequestClose={handleCloseModal} // For Android
       >
         <View style={styles.modalContainer}>
           <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
@@ -38,7 +43,7 @@ export default function AboutScreen() {
           </TouchableOpacity>
 
           <Image
-            source={require('@/assets/images/menu-food.png')}
+            source={imageSource}
             style={styles.image}
             resizeMode="contain"
           />
@@ -49,12 +54,6 @@ export default function AboutScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F2C9E0',
-  },
   cardButton: {
     backgroundColor: '#F2784B',
     paddingVertical: 12,
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.9)', // Fond semi-transparent
+    backgroundColor: 'rgba(0, 0, 0, 0.9)', // Background half-transparent
     justifyContent: 'center',
     alignItems: 'center',
   },

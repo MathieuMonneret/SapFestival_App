@@ -8,7 +8,7 @@ import type { RootStackParamList } from "@/types";
 import Ionicons from '@expo/vector-icons/Ionicons';
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;  // this is require to navigate to the folder "/(tabs)" and then any linked screen when cliking on a "Touchable", 
 
-const PlaceholderImage = require('@/assets/images/Ecusson + Stickers.png'); //path of the image to display
+const PlaceholderImage = require('@/assets/images/icon.png'); //path of the image to display
 
 
 /*** 
@@ -47,6 +47,7 @@ const HomeScreen = () => {
 
   // define how all class and container will work together in the screen
   //// on press the touchable activate the navigation 
+  
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
