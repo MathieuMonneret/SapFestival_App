@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { StyleSheet,SafeAreaView,ScrollView, Text, TouchableOpacity, View,Image,} from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { useLocalSearchParams } from 'expo-router'; // used to search in the page, the param
 import imageMapper from '@/components/imageMapper'; //  image mapper reference all pictures without having to enter the complete path
 
@@ -55,6 +56,12 @@ const artists: Artist[] = [
       setOffsets((prev) => ({ ...prev, [id]: offsetY }));
     };
 
+    const handleScrollToTop = () => {
+      if (scrollViewRef.current) {
+        scrollViewRef.current.scrollTo({ y: 0, animated: true });
+      }
+    };
+
     // compute the auto scrolling with the param we get from the navigation
     useEffect(() => {
         if (focusArtist) {
@@ -96,6 +103,9 @@ const artists: Artist[] = [
           },
         )}
       </ScrollView>
+      <TouchableOpacity style={styles.scrollToTopButton} onPress={handleScrollToTop}>
+        <Ionicons name="arrow-up" size={24} color="white" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -106,6 +116,17 @@ How it is going to look like, color and shapes
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
     backgroundColor: '#F2C9E0',
+  },
+  scrollToTopButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#25292e',
+    padding: 12,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5, // Ombre
   },
   container: {
     padding: 24,

@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: 'center', 
     marginBottom: 24, 
-    marginTop: 24
+    marginTop: 24,
+    paddingBottom : 20,
   },
   image: {
     width: 200, 

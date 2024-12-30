@@ -249,12 +249,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#00008B',
     marginBottom: 4,
   },
   cardDate: {
-    fontSize: 12,
+    fontSize: 14,
     color: '#00008B',
     marginBottom: 8,
   },
