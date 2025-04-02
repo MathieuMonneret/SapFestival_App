@@ -11,50 +11,56 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#F2AA52',
+        tabBarShowLabel: false,
         headerStyle: {
-          backgroundColor: '#F2C9E0',
+          backgroundColor: '#5a9adb',
         },
         headerShown: false,
         headerShadowVisible: false,
         headerTintColor: '#F2784B',
         tabBarStyle: {
-        backgroundColor: '#25292e',
+        position: 'relative',
+        backgroundColor: '#ffffff',
+        height: 60
         },
+        tabBarItemStyle: {
+          flex: 1,
+          justifyContent: 'center', // Centre verticalement
+          alignItems: 'center', // Centre horizontalement
+          paddingTop: 5, // Décale l'icône vers le haut pour éviter le rognage en bas
+        },
+
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="calendar"
-        options={{
-          title: 'Timetable',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'calendar' : 'calendar-outline'} color={color} size={24}/>
+            <Ionicons name={focused ? 'fast-food-sharp' : 'fast-food-outline'} color={color} size={30} />
           ),
         }}
       />
       <Tabs.Screen
         name="artists"
         options={{
-          title: 'Artistes',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'mic' : 'mic'} color={color} size={24}/>
+            <Ionicons name={focused ? 'mic' : 'mic-outline'} color={color} size={30}/>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="calendar"
+        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'calendar' : 'calendar-outline'} color={color} size={30}/>
           ),
         }}
       />
       <Tabs.Screen
         name="activities"
         options={{
-          title: 'Activités',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'trophy' : 'trophy-outline'} color={color} size={24}/>
+            <Ionicons name={focused ? 'trophy' : 'trophy-outline'} color={color} size={30}/>
           ),
         }}
       />
@@ -82,9 +88,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="about"
         options={{
-          title: 'Info',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={24} />
+            <Ionicons name={focused ? 'information-circle' : 'information-circle-outline'} color={color} size={30} />
           ),
         }}
       />

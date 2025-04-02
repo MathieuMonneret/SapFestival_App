@@ -33,7 +33,13 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/Oliver-Regular.otf"]
+        }
+      ]      
     ],
     "experiments": {
       "typedRoutes": true
