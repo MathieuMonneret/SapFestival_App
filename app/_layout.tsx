@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router';
+import Head from 'expo-router/head';
 import { useEffect } from 'react';
 import { RootStackParamList } from "../types"; 
 
@@ -20,7 +21,11 @@ export default function RootLayout() {
   }, []);
 
   return (
+    
     <Stack>
+      <Head>
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+      </Head> 
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       <Stack.Screen name="+not-found" />    </Stack>
   );
