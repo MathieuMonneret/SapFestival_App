@@ -9,7 +9,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "export": "expo export --platform web",
+    "postexport": "cp web/OneSignalSDKWorker.js dist/"
   },
   "jest": {
     "preset": "jest-expo"
