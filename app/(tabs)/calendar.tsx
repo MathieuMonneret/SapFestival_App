@@ -1,10 +1,11 @@
 import React, { useState,useEffect  } from 'react';
-import { View, Text, Image, StyleSheet, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Image, StyleSheet,SafeAreaView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "@/types";
 import * as Font from 'expo-font';
+import ScreenTitle from '@/components/screenTitle';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)/artists">;// this is require to navigate to the screen "/(tabs)/artist" when cliking on a "Touchable", 
 
@@ -85,11 +86,6 @@ const ScheduleScreen = () => {
   //// The touchable on press enable to modify the selectedDayId and so key and value of "Events" 
   const renderDayHeader = () => (
     <View style={styles.cardHeader}>
-      <View style={styles.screenTitle}>
-      <Text style={[styles.screenTitle]}>
-        LINE UP
-      </Text>
-      </View>
       <View style={styles.daysContainer}>
         {days.map((day, index) => {
           const isActive =
@@ -113,7 +109,7 @@ const ScheduleScreen = () => {
   
   // define the calendar function
   /// The touchable on press enable to navigate to the artist selected with a param "id of artist"
-  const renderCalendarItem = ({ item }:{item: typeof events}) => (
+  const renderCalendarItem = ({ item }:{item: typeof Event}) => (
     <TouchableWithoutFeedback onPress={() => navigation.navigate("artists", { focusArtist: item.id })}>
 
       <View style={styles.eventItem}>
@@ -136,24 +132,30 @@ const ScheduleScreen = () => {
             <Text style={styles.cardTitle}>{item.artistName}</Text>
             <Text style={styles.cardSubTitle}>{item.musicStyle}</Text>
           </View>
+          <View style={[styles.card,{backgroundColor:item.bgColor}]}>
+            <Text style={styles.cardTitle}>{item.artistName}</Text>
+            <Text style={styles.cardSubTitle}>{item.musicStyle}</Text>
+          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>
   );
 
   return (
-
-    <View style={styles.container}>
-      {renderDayHeader()}
-      <FlatList
-        contentContainerStyle={{ paddingHorizontal: 8, paddingTop: 10 }}
-        data={selectedEvents}
-        // ListHeaderComponent={renderDayHeader}
-        // stickyHeaderIndices={[0]}
-        renderItem={renderCalendarItem}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </View>
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+      <ScreenTitle>LINE UP</ScreenTitle>
+      <View style={styles.container}>
+        {renderDayHeader()}
+        <FlatList
+          contentContainerStyle={{ paddingHorizontal: 8, paddingTop: 10 }}
+          data={selectedEvents}
+          // ListHeaderComponent={renderDayHeader}
+          // stickyHeaderIndices={[0]}
+          renderItem={renderCalendarItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+      </SafeAreaView>
     
   );
   
@@ -163,9 +165,13 @@ const ScheduleScreen = () => {
 How it is going to look like, color and shapes 
 */
 const styles = StyleSheet.create({
+  safeAreaViewContainer: {
+    flex : 1,
+    backgroundColor: '#5a9adb',
+  },
   container: {
     flex:1,
-    paddingTop: 20,
+    // paddingTop: 16,
     backgroundColor: '#5a9adb'
   },
   title: {
@@ -193,13 +199,14 @@ const styles = StyleSheet.create({
   },
   card: {
     flex:1,
-    borderRadius: 15,
+    borderRadius: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
-    marginBottom: 12,
+    marginBottom: 5,
+    marginHorizontal: 5,
     paddingHorizontal: 16,
     paddingVertical: 12,
   },

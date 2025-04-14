@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FullScreenImageModal from '@/components/imageModal';
+import ScreenTitle from '@/components/screenTitle';
+
 
 const AboutScreen = () => {
   const handleMenuPress = () => {
@@ -10,6 +12,7 @@ const AboutScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
+      <ScreenTitle>INFOS</ScreenTitle>
       <ScrollView style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.cardTitle}>Plan d'accès</Text>
@@ -31,7 +34,7 @@ const AboutScreen = () => {
         </View>
 
         <View style={styles.card}>
-          <Ionicons name="fast-food-outline" size={48} color="#F2784B" style={styles.cardIcon} />
+          <Ionicons name="fast-food-outline" size={48} color="#5a9adb" style={styles.cardIcon} />
           <Text style={styles.cardTitle}>Menu & Boissons</Text>
           <Text style={styles.cardText}>
             🌭 Pad Thai {"\n"}
@@ -56,7 +59,8 @@ export default AboutScreen;
 
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
-    backgroundColor: '#F2C9E0',
+    flex: 1,
+    backgroundColor: '#5a9adb',
   },
   container: {
     padding:24,
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#F2784B',
+    color: '#5a9adb',
     marginBottom: 10,
   },
   cardText: {

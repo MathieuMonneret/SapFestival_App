@@ -4,6 +4,8 @@ import { useRoute } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useLocalSearchParams } from 'expo-router'; // used to search in the page, the param
 import imageMapper from '@/components/imageMapper'; //  image mapper reference all pictures without having to enter the complete path
+import ScreenTitle from '@/components/screenTitle';
+
 
 //define the data artist 
 type Artist = {
@@ -75,6 +77,7 @@ const artists: Artist[] = [
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
+      <ScreenTitle>ARTISTS</ScreenTitle>
       <ScrollView ref={scrollViewRef} style={styles.container}>
         {artists.map(({ id, image, name, bio, duration, style }, index) => {
             return (
@@ -115,11 +118,23 @@ How it is going to look like, color and shapes
 */
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
-    backgroundColor: '#F2C9E0',
+    flex : 1,
+    backgroundColor: '#5a9adb',
+  },
+  screenTitle: {
+    paddingTop : 11,
+    backgroundColor: '#5a9adb',
+    fontFamily: 'Oliver-Regular',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 85,
+    fontWeight: '500',
+    color: '#FFFFFF',
+    // marginTop: 20,
   },
   scrollToTopButton: {
     position: 'absolute',
-    bottom: 20,
+    bottom: 70,
     right: 20,
     backgroundColor: '#25292e',
     padding: 12,

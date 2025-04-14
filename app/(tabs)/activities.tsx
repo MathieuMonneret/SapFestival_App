@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableWithoutFeedback, FlatList, Alert } from 'react-native';
+import { StyleSheet, Text, View,SafeAreaView, TouchableWithoutFeedback, FlatList, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import ScreenTitle from '@/components/screenTitle';
+
 
 export default function ActivityScreen() {
   const data = [
@@ -51,26 +53,28 @@ export default function ActivityScreen() {
   const [options, setOptions] = useState(data);
 
   return (
-    <View style={styles.container}>
-
-      <FlatList 
-        data={options}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => {
-          return (
-            <TouchableWithoutFeedback onPress={() => Alert.alert(`${item.name} : ${item.info} `)}>
-               <View style={styles.card}>
-                    <Ionicons name={item.icon} size={48} color="#F2784B" />
-                    <View style={styles.cardContent}>
-                        <Text style={styles.name}>{item.name}</Text>
-                    </View>
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        }}
-        contentContainerStyle={styles.list}
-      />
-    </View>
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+      <ScreenTitle>ACTIVITIES</ScreenTitle>
+      <View style={styles.container}>
+        <FlatList 
+          data={options}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => {
+            return (
+              <TouchableWithoutFeedback onPress={() => Alert.alert(`${item.name} : ${item.info} `)}>
+                <View style={styles.card}>
+                      <Ionicons name={item.icon} size={48} color="#F2784B" />
+                      <View style={styles.cardContent}>
+                          <Text style={styles.name}>{item.name}</Text>
+                      </View>
+                </View>
+              </TouchableWithoutFeedback>
+            );
+          }}
+          contentContainerStyle={styles.list}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -78,10 +82,27 @@ export default function ActivityScreen() {
 How it is going to look like, color and shapes 
 */
 const styles = StyleSheet.create({
+  safeAreaViewContainer: {
+    flex : 1,
+    backgroundColor: '#5a9adb',
+    
+  },
   container: {
     flex: 1,
-    backgroundColor: '#F2C9E0',
+    backgroundColor: '#5a9adb',
     padding: 20,
+    marginBottom : -20
+  },
+    screenTitle: {
+    paddingTop : 26,
+    backgroundColor: '#5a9adb',
+    fontFamily: 'Oliver-Regular',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 85,
+    fontWeight: '500',
+    color: '#FFFFFF',
+    marginHorizontal: -20,
   },
   list: {
     paddingTop: 20,

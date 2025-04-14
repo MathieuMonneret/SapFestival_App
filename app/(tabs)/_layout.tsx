@@ -10,21 +10,28 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#F2AA52',
+        tabBarActiveTintColor: '#5a9adb',
         tabBarShowLabel: false,
         headerStyle: {
-          backgroundColor: '#5a9adb',
+          // backgroundColor: '#5a9adb',
         },
         headerShown: false,
         headerShadowVisible: false,
         headerTintColor: '#F2784B',
         tabBarStyle: {
-        position: 'relative',
-        backgroundColor: '#ffffff',
-        height: 60
+          position: 'absolute',
+          backgroundColor: '#F9F2EA',  // ou la couleur de ton thème
+          borderRadius: 20,
+          height: 70,
+          elevation: 5,
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 5 },
+          shadowOpacity: 0.1,
+          shadowRadius: 10,
+          borderTopWidth: 0, // supprimer la ligne de séparation par défaut
         },
         tabBarItemStyle: {
-          flex: 1,
+          // flex: 1,
           justifyContent: 'center', // Centre verticalement
           alignItems: 'center', // Centre horizontalement
           paddingTop: 5, // Décale l'icône vers le haut pour éviter le rognage en bas

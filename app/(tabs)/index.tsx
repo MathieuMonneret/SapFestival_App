@@ -1,11 +1,12 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback,Image } from 'react-native';
+import { View, Text, StyleSheet,SafeAreaView, TouchableWithoutFeedback,Image } from 'react-native';
 import ImageViewer from "@/components/ImageViewer";
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "@/types"; 
 import Ionicons from '@expo/vector-icons/Ionicons';
+import ScreenTitle from '@/components/screenTitle';
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;  // this is require to navigate to the folder "/(tabs)" and then any linked screen when cliking on a "Touchable", 
 
 const PlaceholderImage = require('@/assets/images/icon.png'); //path of the image to display
@@ -24,44 +25,47 @@ const HomeScreen = () => {
   //       -> "route" is the name of the screen we should navigate to 
   const cards = [
     {
-      title: "Timetable",
-      icon: "calendar-outline",
+      title: "Menu Bouffe",
+      icon: "pizza-outline",
       route: "calendar",
     },
     {
-      title: "Artistes",
-      icon: "mic",
+      title: "Menu Bar",
+      icon: "beer-outline",
       route: "artists",
     },
-    {
-      title: "Activités",
-      icon: "trophy-outline",
-      route: "activities",
-    },
-    {
-      title: "Info",
-      icon: "information-circle-outline",
-      route: "about",
-    },
+    // {
+    //   title: "Activités",
+    //   icon: "trophy-outline",
+    //   route: "activities",
+    // },
+    // {
+    //   title: "Info",
+    //   icon: "information-circle-outline",
+    //   route: "about",
+    // },
   ];
 
   // define how all class and container will work together in the screen
   //// on press the touchable activate the navigation 
   
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={PlaceholderImage} style={styles.image} />
-      </View>
-       {cards.map((card, index) => (
-          <TouchableWithoutFeedback key={index} onPress={() => navigation.navigate(card.route as keyof RootStackParamList)} > 
+    <SafeAreaView style={styles.safeAreaViewContainer}>
+        <ScreenTitle>B2B</ScreenTitle>
+        {/* <View style={styles.imageContainer}>
+      <Image source={PlaceholderImage} style={styles.image} />
+    </View> */}
+        <View style={styles.container}>
+        {cards.map((card, index) => (
+          <TouchableWithoutFeedback key={index} onPress={() => navigation.navigate(card.route as keyof RootStackParamList)}>
             <View style={styles.card}>
               <Ionicons name={card.icon} size={48} color="#F2784B" />
               <Text style={styles.cardText}>{card.title}</Text>
             </View>
           </TouchableWithoutFeedback>
-    ))}
-    </View>
+        ))}
+        </View>
+      </SafeAreaView>
   );
 };
 
@@ -70,14 +74,18 @@ const HomeScreen = () => {
 How it is going to look like, color and shapes 
 */
 const styles = StyleSheet.create({
+  safeAreaViewContainer: {
+    flex : 1,
+    backgroundColor: '#5a9adb',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#F2C9E0',
-    padding: 16,
-    justifyContent: 'center',
+    backgroundColor: '#5a9adb',
+    padding: 20,
+    // justifyContent: 'center',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    // flexWrap: 'wrap',
+    // flexDirection: 'row',
   },
   imageContainer: {
     alignItems: 'center', 
@@ -91,10 +99,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain', 
   },
   card: {
-    width: 150,
-    height: 150,
-    margin: 12,
-    borderRadius: 16,
+    width: 300,
+    height: 200,
+    margin: 20,
+    borderRadius: 10,
     backgroundColor: '#F9F2EA',
     justifyContent: 'center',
     alignItems: 'center',
