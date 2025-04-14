@@ -10,7 +10,7 @@ export default function RootLayout() {
       // @ts-ignore
       OneSignal.push(function () {
         OneSignal.init({
-          appId: "TON_APP_ID_ICI", // <- remplace par ton vrai App ID
+          appId: "645d940c-7705-4509-b175-49bff85c8c34", // <- remplace par ton vrai App ID
           notifyButton: {
             enable: true,
           },
