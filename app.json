@@ -10,11 +10,12 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "backgroundColor": "#5a9adb"
+      "backgroundColor": "#5a9adb",
+      "favicon": "./assets/images/favicon.png"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/favicon.png",
         "backgroundColor": "#5a9adb"
       },
       "package": "com.guillaumebnd.SAP_Festival"
