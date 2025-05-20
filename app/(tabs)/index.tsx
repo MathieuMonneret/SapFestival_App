@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { RootStackParamList } from "@/types"; 
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as Font from 'expo-font';
 import ScreenTitle from '@/components/screenTitle';
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;  // this is require to navigate to the folder "/(tabs)" and then any linked screen when cliking on a "Touchable", 
 
@@ -18,6 +19,9 @@ const PlaceholderImage = require('@/assets/images/icon.png'); //path of the imag
  * ***/
 const HomeScreen = () => {
 
+  const [loaded, error] = Font.useFonts({
+      'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
+    });
   const navigation = useNavigation<NavigationProps>(); // enable navigation
 
 
