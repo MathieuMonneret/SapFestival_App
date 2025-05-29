@@ -29,9 +29,9 @@ const days = [
   // { id: '2025-07-04', weekday: 'Vendredi - Night' },
   // { id: '2025-07-05', weekday: 'Samedi - Day' },
   // { id: '2024-07-05', weekday: 'Samedi - Night' }, //2024 in order to avoid duplicate with same day in 2025
-  { id: '2025-07-04', weekday: 'J1' },
-  { id: '2025-07-05', weekday: 'J2' },
-  // { id: '2024-07-05', weekday: 'N2' }, //2024 in order to avoid duplicate with same day in 2025
+  { id: '2025-07-04', weekday: 'N1' },
+  { id: '2025-07-05', weekday: 'D2' },
+  { id: '2024-07-05', weekday: 'N2' }, //2024 in order to avoid duplicate with same day in 2025
 ];
 
 const ScheduleScreen = () => {
@@ -63,6 +63,8 @@ const ScheduleScreen = () => {
       { id: 10, startTime: '16:00', endTime:'17:00', artistName: 'HCC', musicStyle: 'Tech-House', bgColor:'#053688'},
       { id: 11, startTime: '17:00', endTime:'18:30', artistName: 'A-Link x Bob Rose', musicStyle: 'Tech-House', bgColor:'#f28d11'},
       { id: 12, startTime: '18:30', endTime:'20:00', artistName: 'Gasplatine', musicStyle: 'Tech-House', bgColor:'#fc87bb'},
+    ],
+    '2024-07-05': [ //2024 in order to avoid duplicate with same day in 2025
       { id: 13, startTime: '21:00', endTime:'22:00', artistName: 'R1', musicStyle: 'Tech-House', bgColor:'#053688'},
       { id: 14, startTime: '22:00', endTime:'23:00', artistName: 'Drove', musicStyle: 'Rap', bgColor:'#f28d11'},
       { id: 15, startTime: '23:00', endTime:'00:30', artistName: 'Cd-Rom x yAs (Label Affaire)', musicStyle: 'Tech-House', bgColor:'#fc87bb'},
@@ -72,16 +74,6 @@ const ScheduleScreen = () => {
       { id: 19, startTime: '03:30', endTime:'04:30', artistName: 'Raymzer', musicStyle: 'Tech-House', bgColor:'#053688'},
       { id: 20, startTime: '04:30', endTime:'06:00', artistName: 'Soapmalin', musicStyle: 'Tech-House', bgColor:'#f28d11'},
     ],
-    // '2024-07-05': [ //2024 in order to avoid duplicate with same day in 2025
-    //   { id: 13, startTime: '21:00', endTime:'22:00', artistName: 'R1', musicStyle: 'Tech-House', bgColor:'#053688'},
-    //   { id: 14, startTime: '22:00', endTime:'23:00', artistName: 'Drove', musicStyle: 'Rap', bgColor:'#f28d11'},
-    //   { id: 15, startTime: '23:00', endTime:'00:30', artistName: 'Cd-Rom x yAs (Label Affaire)', musicStyle: 'Tech-House', bgColor:'#fc87bb'},
-    //   { id: 16, startTime: '00:30', endTime:'01:30', artistName: 'Clover x Paradis Fiscal', musicStyle: 'Tech-House', bgColor:'#053688'},
-    //   { id: 17, startTime: '01:30', endTime:'02:30', artistName: 'LX 42', musicStyle: 'Tech-House', bgColor:'#f28d11'},
-    //   { id: 18, startTime: '02:30', endTime:'03:30', artistName: 'Rawza', musicStyle: 'Tech-House', bgColor:'#fc87bb'},
-    //   { id: 19, startTime: '03:30', endTime:'04:30', artistName: 'Raymzer', musicStyle: 'Tech-House', bgColor:'#053688'},
-    //   { id: 20, startTime: '04:30', endTime:'06:00', artistName: 'Soapmalin', musicStyle: 'Tech-House', bgColor:'#f28d11'},
-    // ],
   };
   
   /**
@@ -176,14 +168,11 @@ const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex : 1,
     backgroundColor: '#5a9adb',
-    marginBottom : 50
   },
   container: {
     flex:1,
     // paddingTop: 16,
-    backgroundColor: '#5a9adb',
-    paddingBottom : 10
-  
+    backgroundColor: '#5a9adb'
   },
   title: {
     fontSize: 24,
@@ -223,8 +212,8 @@ const styles = StyleSheet.create({
   },
   daysContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 60,
+    justifyContent: 'space-around',
+    paddingHorizontal: 16,
     marginBottom: 5,
   },
   dayItem: {

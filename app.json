@@ -39,12 +39,9 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/Oliver-Regular.otf"
-          ]
+          "fonts": ["./assets/fonts/Oliver-Regular.otf"]
         }
-      ],
-      "expo-web-browser"
+      ]      
     ],
     "experiments": {
       "typedRoutes": true

@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex : 1,
     backgroundColor: '#5a9adb',
-    marginBottom : 50
     
   },
   container: {

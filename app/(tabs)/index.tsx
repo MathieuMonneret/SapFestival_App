@@ -8,7 +8,6 @@ import type { RootStackParamList } from "@/types";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Font from 'expo-font';
 import ScreenTitle from '@/components/screenTitle';
-import FullScreenImageModal from '@/components/imageModal';
 type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)">;  // this is require to navigate to the folder "/(tabs)" and then any linked screen when cliking on a "Touchable", 
 
 const PlaceholderImage = require('@/assets/images/icon.png'); //path of the image to display
@@ -32,14 +31,12 @@ const HomeScreen = () => {
     {
       title: "Menu Bouffe",
       icon: "pizza-outline",
-      image : "@/assets/images/plan.jpg",
-      // route: "calendar",
+      route: "calendar",
     },
     {
       title: "Menu Bar",
       icon: "beer-outline",
-      image : "('@/assets/images/menu-food.png')",
-      // route: "artists",
+      route: "artists",
     },
     // {
     //   title: "Activités",
@@ -64,14 +61,10 @@ const HomeScreen = () => {
     </View> */}
         <View style={styles.container}>
         {cards.map((card, index) => (
-          <TouchableWithoutFeedback key={index}>
+          <TouchableWithoutFeedback key={index} onPress={() => navigation.navigate(card.route as keyof RootStackParamList)}>
             <View style={styles.card}>
-              <Ionicons name={card.icon} size={48} color="#F2784B"  />
-               <FullScreenImageModal  // call the component imageModal that enable to display a button and onPress a full screen image 
-                          buttonText={card.title}
-                          imageSource={require('@/assets/images/menu-food.png')}
-                />
-              {/* <Text style={styles.cardText}>{card.title}</Text> */}
+              <Ionicons name={card.icon} size={48} color="#F2784B" />
+              <Text style={styles.cardText}>{card.title}</Text>
             </View>
           </TouchableWithoutFeedback>
         ))}
@@ -88,7 +81,6 @@ const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex : 1,
     backgroundColor: '#5a9adb',
-    marginBottom : 50
   },
   container: {
     flex: 1,
