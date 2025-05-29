@@ -20,27 +20,29 @@ type Artist = {
 
 // define the array of artists
 const artists: Artist[] = [
-    { id: 1, name: 'Happy Guru', bio: 'Une fois de plus en terres promises, le duo iconique du SAP Festival, Happy Guru, se présentera pour fêter ensemble l’ouverture du SAP 4.0. Sur des aires groovys, préparez-vous à un set funky annonçant une soirée intense et exceptionnelle', image:'HAPPY_GURU.png', duration: 'Vendredi 21h-22h', style:'Tech-House' },
-    { id: 2, name: 'HCC x Guizly', bio: 'Guizly, résident permanent des montagnes grenobloises, s’associe avec High Cannabis Cookies pour une performance live reggae dub conçu spécialement pour le SAP festival. Inspiré par la musique africaine et la culture reggae, HCC vous fera vibrer avec ses pads et djembés, créant un groove profond et enivrant. Ensemble, ils vous invitent à danser pieds nus sur des rythmes envoûtants et des gros synthés, promettant une rencontre inoubliable avec Jah au cœur des Alpes.', image:'HCC GUIZLY.png', duration: 'Vendredi 22h-23h', style:'Dub' },
-    { id: 3, name: 'Pryme', bio: 'Son énergique, basses groovy et sueurs de good vibes : voilà ce qui caractérise les sets de PRYME. Lyonnais dans l’âme, pour lui, tout part d’une bonne track House. Mais un bon set, c’est un set dynamique, enrichi de sons Rap, de DnB et d’Eurodance. Formé aux platines avec le collectif Mix’it, il a pratiqué les clubs de Rouen (Spot, Bifrost) avant de se tourner vers Paris en 2023, enchaînant les dates avec @diffusion_restr1nte. Après un tour du monde d’un an, @nylo_pryme fait son retour sur scène spécialement pour le SAP avec la ferme intention de réjouir les foules !', image:'PRYME.png', duration: 'Vendredi 23h-00h', style:'Techno' },
-    { id: 4, name: 'Ring 41', bio: 'Ayant grandi dans une famille de musiciens, c’est par la batterie que Ring41 entre pleinement dans le monde de la musique. Lorsque la passion pour le genre électronique s’est développée, il ne restait alors plus qu’un pas jusqu’au DJing. Constamment à la recherche de nouvelles tracks et sonorités, il propose des sets diversifiés pleins de classiques, dans lesquels vous découvrirez toujours des nouvelles pépites. Ne se laissant pas limiter par les genres, Ring41 peut vous faire voyager de la Disco à la Trance, en passant par la House, le Breakbeat, la UK Garage et la Jungle. Assurez-vous d’avoir un billet validé avant de monter à bord.', image:'RING 41.png', duration: 'Vendredi 00h-01h30', style:'Techno' },
-    { id: 5, name: 'Maffia Dora x DJ 1000', bio: 'Derrière les platines, Maffia Fora s’amuse avec tous les styles et distille une énergie autant survoltée qu’envoûtante. Viscéraux et entraînants, ses sets passent de l’ombre à la lumière, ne laissant pas d’autre choix que de danser. Échauffez votre cardio car DJ1000 va faire monter bpm et température, à coups de bangers dans vos oreilles. Ce b2b d’exception vous fera naviguer entre hard & fast house, trance, et autres genres surprenants.', image:'DJ 1000.png', duration: 'Vendredi 1h30-03h', style:'Techno' },
-    { id: 6, name: 'Obekix', bio: 'Obékix est le cousin germain d’Obélix. Tombé dans la techno-marmite tout petit, il a troqué le sanglier pour les platines et les menhirs pour les murs de son. Installé à Berlinix, la capitale Groove de l’Empire romain, Obékix est une figure incontournable (dû à sa large carrure).', image:'OBEKIX.png', duration: 'Vendredi 03h-4h30', style:'Techno' },
-    { id: 7, name: 'Loul', bio: 'Originaire de Bretagne, cette DJ globe-trotteuse a attrapé le virus de la techno en Irlande, où elle a habité pendant 2 ans. LOUL a commencé à mixer en after, puis en rave party. Depuis, la musique fait partie de son quotidien, toujours à la recherche de tracks qui la font vibrer. Installée à Bali depuis fin 2023, elle a développé une sélection de musique plus mélodique, mais ce qu’elle préfère par-dessus tout, c’est jouer de la techno sombre et captivante. LOUL a d’ailleurs pour objectif de développer la scène techno sur l’île des Dieux, ce qui l’a amenée à créer Silver Soul. Impatiente de retrouver la scène Underground pendant son séjour en Europe cet été, attendez-vous à vous envoler ', image:'HAPPY_GURU.png', duration: 'Vendredi 04h30-06h', style:'Techno' },
-    { id: 8, name: 'Lemon Kid', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 14h-15h', style:'Techno' },
-    { id: 9, name: 'Falafel', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 15h-16h', style:'Techno' },
-    { id: 10, name: 'HCC', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 16h-17h', style:'Techno' },
-    { id: 11, name: 'A-Link x Bob Rose', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 17h-18h30', style:'Techno' },
-    { id: 12, name: 'Gasplatine', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 18h30-20h', style:'Techno' },
-    { id: 13, name: 'R1', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 21h-22h', style:'Techno' },
-    { id: 14, name: 'Drove', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 22h-23h', style:'Rap' },
-    { id: 15, name: 'Cd-Rom x yAs (Label Affaire)', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 23h-00h30', style:'Techno' },
-    { id: 16, name: 'Clover x Paradis Fiscal', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 00h30-1h30', style:'Techno' },
-    { id: 17, name: 'LX 42', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 01h30-2h30', style:'Techno' },
-    { id: 18, name: 'Rawza', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 2h30-3h30', style:'Techno' },
-    { id: 19, name: 'Raymzer', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 3h30-4h30', style:'Techno' },
-    { id: 20, name: 'Soapmalin', bio: 'DJ et producteur basé à Paris...', image:'HAPPY_GURU.png', duration: 'Samedi 4h30-6h', style:'Techno' },
-
+    { id: 1, name: 'Happy Guru', bio: "Une fois de plus, le duo iconique du SAP Festival, Happy Guru, se présentera devant vous pour fêter ensemble l’ouverture du SAP 5.0. Avec un set disco house, préparez votre plus beau sourire et votre meilleur déhanché pour profiter de ce moment exceptionnel annonçant une soirée d’euphorie !", image: 'HAPPY_GURU.jpg', duration: 'Vendredi 21h - 22h', style: 'HOUSE / DISCO / FUNK' },
+    { id: 2, name: 'Le B', bio: "Originaire de Paris, Basile, aka « le B », propose des DJ sets aux sonorités variées. Il navigue entre house mélodique, trance et italo disco, le tout agrémenté de ses influences rap. Adepte des petites scènes parisiennes, il saura introduire comme il se doit cette cinquième édition du SAP.", image: 'LE_B.jpg', duration: 'Vendredi 22h - 23h', style: 'HOUSE MÉLODIQUE / TRANSE / ITALO DISCO' },
+    { id: 3, name: 'Pryme', bio: "Son énergique, basses groovy et sueurs de good vibes : voilà ce qui caractérise les sets de PRYME. Lyonnais dans l’âme, pour lui, tout part d’une bonne track House. Mais un bon set, c’est un set dynamique, enrichi de sons Rap, de DnB et d’Eurodance.", image: 'PRYME.jpg', duration: 'Vendredi 23h - 00h', style: 'UK SPEED GARAGE' },
+    { id: 4, name: 'maffia fora', bio: "Stimulée par l’émulation des milieux undergrounds lyonnais et parisiens, maffia fora propose des sets denses et puissants. Le credo est assumé : rap, électro, militantisme, et de préférence les 3 à la fois.", image: 'MAFFIA_FORA.jpg', duration: 'Vendredi 00h - 01h', style: 'HARDHOUSE / BASS MUSIC / RAP / ÉLECTRO HOUSE / GLOBAL DANCEFLOOR' },
+    { id: 5, name: 'Mino', bio: "DJ passionnée basée à Barcelone et inspirée par les scènes underground en Europe et outre-Atlantique, Mino propose des sets éclectiques mêlant techno, trance, dance et breaks, pour offrir des ambiances captivantes et énergiques.", image: 'MINO.jpg', duration: 'Vendredi 1h - 2h', style: 'MODERN TRANCE / GROOVE / HARDGROOVE' },
+    { id: 6, name: 'Clemm', bio: "Née derrière les platines à Dakar, Clemm aime faire monter les bpm sans transition et trace sa route entre trance mélodique et kicks bien secs. Préparez-vous à transpirer.", image: 'CLEMM.jpg', duration: 'Vendredi 2h - 3h', style: 'TRANCE 90\'S - 20\'S' },
+    { id: 7, name: 'Nott', bio: "Avis aux personnes souhaitant hurler leur plus beau refrain sans décoller l'oreille du caisson, Nøtt pour vous servir. Ici ça mix et surtout ça remix.", image: 'NOTT.jpg', duration: 'Vendredi 3h - 4h', style: 'EURODANCE / TECHNO' },
+    { id: 8, name: 'LOUL', bio: "Derrière son air angélique : des basses qui cognent et une techno sans compromis. Née en afterparty dublinoise en 2022, LOUL vous prépare un set intense et enjoué, qui risque de vous faire grimacer ... de plaisir.", image: 'LOUL.jpg', duration: 'Vendredi 4h - 5h', style: 'TECHNO / TRANCE' },
+    { id: 9, name: 'Photon', bio: "Acid, basses et mélodies : trois mots qui définissent l’univers de Photon. Il délivre des sets percutants et sans concession alliant Acid Techno et Acid Trance, où l’énergie ne faiblit jamais.", image: 'PHOTON.jpg', duration: 'Vendredi 5h - 6h', style: 'ACID TECHNO / ACID TRANCE' },
+    // { id: 10, name: 'JAM Session', bio: "", image: 'JAM_SESSION.jpg', duration: 'Samedi 14h - 15h', style: 'JAM SESSION' },
+    // { id: 11, name: 'NiniDJ', bio: "", image: 'NINIDJ.jpg', duration: 'Samedi 15h - 16h', style: '' },
+    // { id: 12, name: 'HCC', bio: "", image: 'HCC.jpg', duration: 'Samedi 16h - 17h', style: '' },
+    // { id: 13, name: 'Léo', bio: "", image: 'LÉO.jpg', duration: 'Samedi 17h - 18h', style: 'D&B WORKOUT' },
+    { id: 14, name: 'Lemon Kid', bio: "Dans l'univers envoûtant de Lemon Kid, l'auditeur flâne et déambule à travers des paysages sonores en mouvement. Une transe rythmée mais douce, électro groovy et mélodies synthétiques.", image: 'LEMON_KID.jpg', duration: 'Samedi 18h - 19h', style: 'HOUSE' },
+    // { id: 15, name: '', bio: '', image: '', duration: 'Samedi 19h - 20h', style: 'HOUSE' },
+    { id: 16, name: 'Roger Federave', bio: "Encore jet lag de son retour de la crèche, Roger Federave viens (en) remettre une couche samedi à 21h pour vous passer la pomade avec une comptine de disco. Attention biberons obligatoire sur la piste !", image: 'ROGER_FEDERAVE.jpg', duration: 'Samedi 21h-22h', style: 'DISCO HOUSE, DISCO, EURODANCE 90\'S, COMMERCIAL, TECHNO/TRANCE' },
+    { id: 17, name: 'D R O V E', bio: "Une heure de rap, c'est pas assez pour certains, trop pour d'autres. C'est que du rap, rien que du rap, et accessoirement le meilleur set du SAP.", image: 'DROVE.jpg', duration: 'Samedi 22h - 23h', style: 'RAP' },
+    { id: 18, name: 'ALINK B2B CD ROM', bio: "Habitués du SAP depuis les débuts, A-Link et CD Rom, producteurs et DJs au sein du label lyonnais Label Affaire, proposent une large selecta autour de la house et une technique affutée par l’expérience.", image: 'ALINK_B2B_CD_ROM.jpg', duration: 'Samedi 23h - 0h30', style: 'HOUSE / TECHNO' },
+    { id: 19, name: 'Dj Thibald', bio: "Préparez-vous à voyager à la frontière des genres avec DJ Thibald. Naviguant entre hardhouse, hardgroove, acid et trance des années 90, il vous fera voguer entre mélodie et décibels.", image: 'DJ_THIBALD.jpg', duration: 'Samedi 0h30 - 1h30', style: 'HARD HOUSE / 90S TRANCE' },
+    { id: 20, name: 'Virgin Mobile b2b Forfait Bloqué', bio: "Après des années de silence radio, le duo Virgin Mobile et Forfait Bloqué fait son grand retour ! Préparez-vous à un set unique, chargé d’émotions. Connexion rétablie, énergie illimitée !", image: 'VIRGIN_MOBILE_B2B_FORFAIT_BLOQUÉ.jpg', duration: 'Samedi 1h30 - 3h00', style: 'TECHNO' },
+    { id: 21, name: 'Raymzer', bio: "Après une première performance marquée par une pluie diluvienne sur les platines, Raymzer revient pour faire rebouger vos petits culs sur des sons trance et hardgroove finement diggés.", image: 'RAYMZER.jpg', duration: 'Samedi 3h00 - 4h00', style: 'TECHNO' },
+    { id: 22, name: 'Rstef', bio: "Depuis 5 ans derrière les platines, Rstef fait vibrer la scène lyonnaise avec des sets aussi puissants qu’euphoriques. Inspiré par FC Kabagar, Pawlowski ou Somewhen, il mêle énergie brute et euphorie collective.", image: 'RSTEF.jpg', duration: 'Samedi 4h00 - 5h00', style: 'BOUNCE' },
+    { id: 23, name: 'JUST KA', bio: "Bercé par la scène techno lyonnaise, JUST KA est le parfait mélange entre techno sautillante et hard techno sombre. Il prône avant tout le fun avec des morceaux déjantés qui font taper du pied.", image: 'JUST_KA.jpg', duration: 'Samedi 5h00 - 6h', style: 'HARD TECHNO/ TECHNO GROOVY' }
   ];
 
 
@@ -98,6 +100,7 @@ const artists: Artist[] = [
                   <View style={styles.cardBody}>
                     <View style={styles.cardHeader}>
                       <Text style={styles.cardTitle}>{name}</Text>
+                      <Text style={styles.cardDescription}>{duration}</Text>
                     </View>
                     <Text style={styles.cardDescription}>{bio}</Text>
                   </View>
@@ -120,6 +123,7 @@ const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex : 1,
     backgroundColor: '#5a9adb',
+    marginBottom : 50,
   },
   screenTitle: {
     paddingTop : 11,
