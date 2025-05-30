@@ -1,12 +1,22 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,SafeAreaView, TouchableWithoutFeedback, FlatList, Alert } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  FlatList,
+  Alert,
+  Dimensions,
+  Platform,
+} from 'react-native';
 import ScreenTitle from '@/components/screenTitle';
 
+const { width } = Dimensions.get('window');
 
 export default function ActivityScreen() {
   const data = [
-    {
+  {
     id: 1,
     name: 'Mini jeux à l’arrivée',
     type: 'Jeu',
@@ -24,7 +34,7 @@ export default function ActivityScreen() {
     type: 'Jeu',
     respo: 'JT/Josepha',
     location: 'Tables zone restauration',
-    participation: 'inscription (individuel, équipes aléatoires)',
+    participation: 'inscription individuelle (équipes faites au pif)',
     icon: 'beer-outline',
     duration: 'Vendredi 19h - 22h',
     info: "T'as la descente facile, viens monter le coude au Beer Pong.",
@@ -74,7 +84,7 @@ export default function ActivityScreen() {
     type: 'Sport',
     respo: 'JT',
     location: '2 terrains volley (mêmes que l\'an dernier)',
-    participation: 'inscription (individuel, équipes aléatoires)',
+    participation: 'inscription individuelle (équipes faites au pif)',
     icon: 'tennisball-outline',
     duration: 'Samedi 14h - 17h',
     info: '',
@@ -170,7 +180,7 @@ export default function ActivityScreen() {
     info: 'BINGO !!!! Et le vrai cette année :)',
     color: '#f28d11',
   }
-  ];
+];
 
   const [options, setOptions] = useState(data);
 
@@ -178,33 +188,39 @@ export default function ActivityScreen() {
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <ScreenTitle>ACTIVITIES</ScreenTitle>
       <View style={styles.container}>
-        <FlatList 
+        <FlatList
           data={options}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => {
-            return (
-              <TouchableWithoutFeedback onPress={() => Alert.alert(`${item.name} : ${item.info} `)}>
-                <View style={styles.card}>
-                      {/* <Ionicons name={item.icon} size={48} color="#F2784B" /> */}
-                      <View style={styles.cardContent}>
-                          <Text style={styles.name}>{item.name}</Text>
-                          <Text style={[styles.name, {fontWeight : 700,fontSize : 15, color:item.color}]}>{item.type}</Text>
-                      </View>
-                      <View style={styles.cardContent}>
-                          <Text style={[styles.name, {fontWeight : 700,fontSize : 15, color: '#545454'}]}>📅 {item.duration}</Text>
-                          <Text style={[styles.name, {fontWeight : 500,fontSize : 15, color: '#545454'}]}>📍 {item.location}</Text>
-                      </View>
-                      <View style={styles.cardContent}>
-                          <Text style={[styles.name, {fontWeight : 500,fontSize : 15, color: '#545454'}]}>🧙🏻‍♀️🧙‍♂️ {item.respo}</Text>
-                          <Text style={[styles.name, {fontWeight : 700,fontSize : 15, color: '#545454'}]}>{item.participation}</Text>
-                      </View>
-                      <View style={styles.cardContent}>
-                          <Text style={[styles.name, {fontWeight : 500,fontSize : 15, color: '#545454'}]}>{item.info}</Text>
-                      </View>
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => Alert.alert(`${item.name}`, item.info || 'Aucune info supplémentaire')}
+              activeOpacity={0.8}
+            >
+              <View style={styles.card}>
+                <View style={[styles.cardContent, {flexWrap : 'nowrap'}]}>
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={[styles.type, { color: item.color }]}>{item.type}</Text>
                 </View>
-              </TouchableWithoutFeedback>
-            );
-          }}
+                <View style={styles.cardContent}>
+                  <Text style={styles.detail}>📅 {item.duration}</Text>
+                  <Text style={styles.detail}>📍 {item.location}</Text>
+                </View>
+                {item.participation ? (
+                  <View style={styles.cardContent}>
+                    <Text style={styles.participation}>📝 {item.participation}</Text>
+                    <Text style={styles.detail}>🧙🏻‍♀️🧙‍♂️ {item.respo}</Text>
+                  </View>
+                ) : <View style={styles.cardContent}>
+                      <Text style={styles.detail}>🧙🏻‍♀️🧙‍♂️ {item.respo}</Text>
+                    </View>}
+                {item.info ? (
+                  <View style={styles.cardContent}>
+                    <Text style={[styles.detail, {fontWeight : 400}]}>{item.info}</Text>
+                  </View>
+                ) : null}
+              </View>
+            </TouchableOpacity>
+          )}
           contentContainerStyle={styles.list}
         />
       </View>
@@ -212,63 +228,67 @@ export default function ActivityScreen() {
   );
 }
 
-/*
-How it is going to look like, color and shapes 
-*/
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
-    flex : 1,
+    flex: 1,
     backgroundColor: '#5a9adb',
-    marginBottom : 50,
-    
+    marginBottom: 50,
   },
   container: {
     flex: 1,
     backgroundColor: '#5a9adb',
-    // padding: 20,
-    // marginBottom : -20
-  },
-    screenTitle: {
-    paddingTop : 26,
-    backgroundColor: '#5a9adb',
-    fontFamily: 'Oliver-Regular',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 85,
-    fontWeight: '500',
-    color: '#FFFFFF',
-    marginHorizontal: -20,
   },
   list: {
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingVertical: 20,
+    alignItems: 'stretch',
   },
   card: {
-    flexDirection: 'column',
     backgroundColor: '#F9F2EA',
-    padding: 15,
+    paddingHorizontal: width * 0.04,
+    paddingVertical: width * 0.02,
     marginBottom: 20,
     borderRadius: 15,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
+    shadowOpacity: Platform.OS === 'ios' ? 0.1 : 0,
     shadowRadius: 8,
-    elevation: 5,
-    alignItems: 'flex-start',
-    marginHorizontal : 20
-
+    elevation: Platform.OS === 'android' ? 5 : 0,
+    width: '90%',          // 👈 largeur fixe en % pour tout l'écran
+    maxWidth: 500,         // 👈 pour éviter les débordements sur grands écrans
+    alignSelf: 'center',   // 👈 centre chaque carte individuellement
   },
   cardContent: {
-    marginLeft: 15,
-    paddingVertical : 5,
-    flex: 1,
     flexDirection: 'row',
-    alignItems: 'baseline',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems : 'baseline',
+    gap: 4,
+    marginVertical: 4,
   },
   name: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: width < 350 ? 14 : 18,
+    fontWeight: '700',
     color: '#25292e',
-    paddingHorizontal : 15
+    flexShrink: 1,
+    paddingRight: 10,
+  },
+  type: {
+    fontSize: width < 350 ? 13 : 15,
+    fontWeight: '700',
+  },
+  detail: {
+    fontSize: width < 350 ? 12 : 15,
+    fontWeight: '500',
+    color: '#545454',
+    flexShrink: 1,
+    textAlign :'justify'
+  },
+  participation: {
+    fontSize: width < 350 ? 12 : 15,
+    fontWeight: '500',
+    color: '#545454',
+    flexShrink: 1,
+    textAlign :'justify'
+    
   },
 });
