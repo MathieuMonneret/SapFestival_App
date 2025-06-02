@@ -9,15 +9,127 @@ const DAYS = ['Vendredi', 'Samedi'];
 
 const eventData = {
   Vendredi: [
-    { id: 201, startTime: '17:00', endTime: '19:00', title: "Mini jeux à l’arrivée", description: 'bang, noeud humain, énigme', bgColor: '#f28d11', category: 'activity' },
-    { id: 202, startTime: '19:00', endTime: '22:00', title: 'Tournoi de Beer Pong + Stand animation', description: "T'as la descente facile, viens monter le coude au Beer Pong.", bgColor: '#f28d11', category: 'activity' },
-    { id: 203, startTime: '21:00', endTime: '21:30', title: 'Élection Hymne', description: 'Et tu tapes tapes tapes, cet hymne que tu préfères. Et tu chantes chantes chantes ce refrain qui te plaît.', bgColor: '#f28d11', category: 'activity' },
-    { id: 1, startTime: '21:00', endTime: '22:00', title: 'Happy Guru', description: 'HOUSE / DISCO / FUNK', bgColor: '#053688', category: 'artist' },
-    { id: 101, startTime: '21:00', endTime: '23:00', title: 'REPAS', description: 'KEBAB FRITE (voir menu)', bgColor: '#fc87bb', category: 'meal' },
-    { id: 2, startTime: '22:00', endTime: '23:00', title: 'Le B', description: 'HOUSE MÉLODIQUE / TRANSE / ITALO DISCO', bgColor: '#053688', category: 'artist' },
-    { id: 3, startTime: '23:00', endTime: '00:00', title: 'Pryme', description: 'UK SPEED GARAGE', bgColor: '#053688', category: 'artist' }
-  ],
-  Samedi: []
+  { id: 201, startTime: '17:00', endTime: '19:00', title: 'Mini jeux à l’arrivée', description: 'bang, noeud humain, énigme', bgColor: '#f28d11', category: 'activity' },
+  { id: 202, startTime: '19:00', endTime: '22:00', title: 'Tournoi de Beer Pong + Stand animation', description: "T'as la descente facile, viens monter le coude au Beer Pong.", bgColor: '#f28d11', category: 'activity' },
+  { id: 203, startTime: '21:00', endTime: '21:30', title: 'Élection Hymne', description: 'Et tu tapes tapes tapes, cet hymne que tu préfères. Et tu chantes chantes chantes ce refrain qui te plaît.', bgColor: '#f28d11', category: 'activity' },
+  { id: 1, startTime: '21:00', endTime: '22:00', title: 'Happy Guru', description: 'HOUSE / DISCO / FUNK', bgColor: '#053688', category: 'artist' },
+  { id: 101, startTime: '21:00', endTime: '23:00', title: 'REPAS', description: 'KEBAB FRITE (voir menu)', bgColor: '#fc87bb', category: 'meal' },
+  { id: 2, startTime: '22:00', endTime: '23:00', title: 'Le B', description: 'HOUSE MÉLODIQUE / TRANSE / ITALO DISCO', bgColor: '#053688', category: 'artist' },
+  { id: 3, startTime: '23:00', endTime: '00:00', title: 'Pryme', description: 'UK SPEED GARAGE', bgColor: '#053688', category: 'artist' },
+  { id: 4, startTime: '00:00', endTime: '01:00', title: 'maffia fora', description: 'HARDHOUSE / BASS MUSIC / RAP / ÉLECTRO HOUSE / GLOBAL DANCEFLOOR', bgColor: '#053688', category: 'artist' },
+  { id: 5, startTime: '01:00', endTime: '02:00', title: 'Mino', description: 'MODERN TRANCE / GROOVE / HARDGROOVE', bgColor: '#053688', category: 'artist' },
+  { id: 6, startTime: '02:00', endTime: '03:00', title: 'Clemm', description: 'TRANCE 90\'S - 20\'S', bgColor: '#053688', category: 'artist' },
+  { id: 7, startTime: '03:00', endTime: '04:00', title: 'Nott', description: 'EURODANCE / TECHNO', bgColor: '#053688', category: 'artist' },
+  { id: 8, startTime: '04:00', endTime: '05:00', title: 'LOUL', description: 'TECHNO / TRANCE', bgColor: '#053688', category: 'artist' },
+  { id: 9, startTime: '05:00', endTime: '06:00', title: 'Photon', description: 'ACID TECHNO / ACID TRANCE', bgColor: '#053688', category: 'artist' },
+],
+  Samedi: [
+  { id: 10, startTime: '14:00', endTime: '15:00', title: 'JAM Session', description: 'JAM SESSION', bgColor: '#053688', category: 'artist' },
+  { id: 11, startTime: '15:00', endTime: '16:00', title: 'NiniDJ', description: '', bgColor: '#053688', category: 'artist' },
+  { id: 12, startTime: '16:00', endTime: '17:00', title: 'HCC', description: '', bgColor: '#053688', category: 'artist' },
+  { id: 13, startTime: '17:00', endTime: '18:00', title: 'Léo', description: 'D&B WORKOUT', bgColor: '#053688', category: 'artist' },
+  { id: 14, startTime: '18:00', endTime: '19:00', title: 'Lemon Kid', description: 'HOUSE', bgColor: '#053688', category: 'artist' },
+  { id: 15, startTime: '19:00', endTime: '20:00', title: '', description: 'HOUSE', bgColor: '#053688', category: 'artist' },
+  { id: 16, startTime: '21:00', endTime: '22:00', title: 'Roger Federave', description: 'DISCO HOUSE, DISCO, EURODANCE 90\'S, COMMERCIAL, TECHNO/TRANCE', bgColor: '#053688', category: 'artist' },
+  { id: 17, startTime: '22:00', endTime: '23:00', title: 'D R O V E', description: 'RAP', bgColor: '#053688', category: 'artist' },
+  { id: 18, startTime: '23:00', endTime: '00:30', title: 'ALINK B2B CD ROM', description: 'HOUSE / TECHNO', bgColor: '#053688', category: 'artist' },
+  { id: 19, startTime: '00:30', endTime: '01:30', title: 'Dj Thibald', description: 'HARD HOUSE / 90S TRANCE', bgColor: '#053688', category: 'artist' },
+  { id: 20, startTime: '01:30', endTime: '03:00', title: 'Virgin Mobile b2b Forfait Bloqué', description: 'TECHNO', bgColor: '#053688', category: 'artist' },
+  { id: 21, startTime: '03:00', endTime: '04:00', title: 'Raymzer', description: 'TECHNO', bgColor: '#053688', category: 'artist' },
+  { id: 22, startTime: '04:00', endTime: '05:00', title: 'Rstef', description: 'BOUNCE', bgColor: '#053688', category: 'artist' },
+  { id: 23, startTime: '05:00', endTime: '06:00', title: 'JUST KA', description: 'HARD TECHNO / TECHNO GROOVY', bgColor: '#053688', category: 'artist' },
+  {
+    id: 28,
+    startTime: '12:00',
+    endTime: '13:00',
+    title: 'Yoga Saucisson',
+    description: "Ramène ton matelas et viens bouger ton corps dans la boue. Si tu tiens la position plus de 30 s, tu repars avec ton morceau de sauciflard.",
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 29,
+    startTime: '12:00',
+    endTime: '19:00',
+    title: 'Stand Animation',
+    description: '',
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 30,
+    startTime: '14:00',
+    endTime: '17:00',
+    title: 'Tournoi Volley',
+    description: '',
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 31,
+    startTime: '15:00',
+    endTime: '18:00',
+    title: 'DIY Carte Postale / Lino',
+    description: "Tu veux repartir avec un souvenir ? Viens imprimer une petite gravure sur le médium de ton choix : papier, textile.",
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 32,
+    startTime: '16:00',
+    endTime: '19:00',
+    title: 'Atelier Paillettes',
+    description: 'Viens te transformer en fée <3',
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 33,
+    startTime: '17:00',
+    endTime: '18:00',
+    title: 'Aérobic sur musique',
+    description: '',
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 34,
+    startTime: '18:00',
+    endTime: '19:00',
+    title: 'Géo BLIND',
+    description: "Fan de géographie, backpacker endurci, viens te challenger au GEO Blind. Des départements français au tour du monde, tente ta chance dans le voyage du SAP.",
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 35,
+    startTime: '18:00',
+    endTime: '19:00',
+    title: 'Culture G',
+    description: "Tu sais ce qu'on dit : la culture c'est comme la confiture, moins t'en as plus tu l'étales alors viens te tartiner.",
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 36,
+    startTime: '18:00',
+    endTime: '20:00',
+    title: 'Cercle de Parole',
+    description: "Tu cherches un espace humain pour avoir des conversations profondes.",
+    bgColor: '#f28d11',
+    category: 'activity'
+  },
+  {
+    id: 37,
+    startTime: '21:00',
+    endTime: '21:30',
+    title: 'BINGO',
+    description: "BINGO !!!! Et le vrai cette année :)",
+    bgColor: '#f28d11',
+    category: 'activity'
+  }
+
+],
 };
 
 const timeToMinutes = (time: string) => {
@@ -73,7 +185,7 @@ const ScheduleScreen = () => {
   const events = eventData[selectedDay];
   const { positionedEvents, columnCount } = assignColumns(events);
 
-  const minHour = 17;
+  const minHour = 10;
   const maxHour = 30;
   const timeSlots = [];
   for (let hour = minHour; hour <= maxHour; hour++) {
@@ -121,8 +233,10 @@ const ScheduleScreen = () => {
                         backgroundColor: event.bgColor,
                         padding: 4,
                         borderRadius: 6,
-                        borderWidth: event.category === 'artist' ? 2 : 0,
-                        borderColor: event.category === 'artist' ? 'black' : 'transparent'
+                        // borderWidth: event.category === 'artist' ? 2 : 0,
+                        // borderColor: event.category === 'artist' ? 'black' : 'transparent'
+                        borderWidth: 2,
+                        borderColor: '#5a9adb'
                     }}
                     >
                     <Text style={{ fontWeight: 'bold', fontSize: 12, color : '#fff' }}>{event.title}</Text>
