@@ -42,6 +42,12 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
+          href: null, // 👈 Cache l'onglet
+        }}
+      />
+      <Tabs.Screen
+        name="b2b"
+        options={{
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'fast-food-sharp' : 'fast-food-outline'} color={color} size={30} />
           ),
@@ -61,6 +67,12 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'calendar' : 'calendar-outline'} color={color} size={30}/>
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="calendar_old"
+        options={{
+          href: null, // 👈 Cache l'onglet
         }}
       />
       <Tabs.Screen

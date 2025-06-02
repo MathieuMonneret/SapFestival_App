@@ -1,314 +1,157 @@
-import React, { useState,useEffect  } from 'react';
-import { View, Text, Image, StyleSheet,SafeAreaView, FlatList, TouchableWithoutFeedback } from 'react-native';
-import moment from 'moment';
-import { useNavigation } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import type { RootStackParamList } from "@/types";
-import * as Font from 'expo-font';
+import React, { useState } from 'react';
 import ScreenTitle from '@/components/screenTitle';
+import * as Font from 'expo-font';
+import { View, Text, ScrollView, SafeAreaView, Pressable, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { format, parse, isAfter, isBefore } from 'date-fns';
 
-type NavigationProps = NativeStackNavigationProp<RootStackParamList, "(tabs)/artists">;// this is require to navigate to the screen "/(tabs)/artist" when cliking on a "Touchable", 
+const DAYS = ['Vendredi', 'Samedi'];
 
-// define type of data for Event object
-type Event = {
-  id: number
-  startTime: string;
-  endTime: string;
-  artistName: string;
-  musicStyle: string;
-  bgColor: string,
+const eventData = {
+  Vendredi: [
+    { id: 201, startTime: '17:00', endTime: '19:00', title: "Mini jeux à l’arrivée", description: 'bang, noeud humain, énigme', bgColor: '#f28d11', category: 'activity' },
+    { id: 202, startTime: '19:00', endTime: '22:00', title: 'Tournoi de Beer Pong + Stand animation', description: "T'as la descente facile, viens monter le coude au Beer Pong.", bgColor: '#f28d11', category: 'activity' },
+    { id: 203, startTime: '21:00', endTime: '21:30', title: 'Élection Hymne', description: 'Et tu tapes tapes tapes, cet hymne que tu préfères. Et tu chantes chantes chantes ce refrain qui te plaît.', bgColor: '#f28d11', category: 'activity' },
+    { id: 1, startTime: '21:00', endTime: '22:00', title: 'Happy Guru', description: 'HOUSE / DISCO / FUNK', bgColor: '#053688', category: 'artist' },
+    { id: 101, startTime: '21:00', endTime: '23:00', title: 'REPAS', description: 'KEBAB FRITE (voir menu)', bgColor: '#fc87bb', category: 'meal' },
+    { id: 2, startTime: '22:00', endTime: '23:00', title: 'Le B', description: 'HOUSE MÉLODIQUE / TRANSE / ITALO DISCO', bgColor: '#053688', category: 'artist' },
+    { id: 3, startTime: '23:00', endTime: '00:00', title: 'Pryme', description: 'UK SPEED GARAGE', bgColor: '#053688', category: 'artist' }
+  ],
+  Samedi: []
 };
 
-//Events is an array of "Event" with date as Key
-type Events = {
-  [date: string]: Event[];
+const timeToMinutes = (time: string) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  // Si l'heure est entre 0h et 5h, on considère que c'est dans la nuit suivante
+  if (hours < 6) return (24 + hours) * 60 + minutes;
+  return hours * 60 + minutes;
 };
 
-//create an array of the days for the TopBar Header
-const days = [
-  // { id: '2025-07-04', weekday: 'Vendredi - Night' },
-  // { id: '2025-07-05', weekday: 'Samedi - Day' },
-  // { id: '2024-07-05', weekday: 'Samedi - Night' }, //2024 in order to avoid duplicate with same day in 2025
-  { id: '2025-07-04', weekday: 'Vendredi' },
-  { id: '2025-07-05', weekday: 'Samedi' },
-  // { id: '2024-07-05', weekday: 'N2' }, //2024 in order to avoid duplicate with same day in 2025
-];
+const assignColumns = (events: any[]) => {
+  const sortedEvents = [...events].sort((a, b) => {
+    const timeDiff = timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
+    if (timeDiff !== 0) return timeDiff;
+    // Priorité aux artistes pour les mettre à gauche
+    if (a.category === 'artist' && b.category !== 'artist') return -1;
+    if (b.category === 'artist' && a.category !== 'artist') return 1;
+    return 0;
+  });
+
+  const columns: any[][] = [];
+
+  for (const event of sortedEvents) {
+    let placed = false;
+    for (let i = 0; i < columns.length; i++) {
+      if (!columns[i].some(e => timeToMinutes(e.endTime) > timeToMinutes(event.startTime) && timeToMinutes(e.startTime) < timeToMinutes(event.endTime))) {
+        columns[i].push(event);
+        placed = true;
+        break;
+      }
+    }
+    if (!placed) {
+      columns.push([event]);
+    }
+  }
+
+  const positionedEvents: any[] = [];
+  for (let i = 0; i < columns.length; i++) {
+    for (const event of columns[i]) {
+      positionedEvents.push({ ...event, column: i });
+    }
+  }
+  return { positionedEvents, columnCount: columns.length };
+};
 
 const ScheduleScreen = () => {
 
-  const [loaded, error] = Font.useFonts({
-    'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
-  });
+    const [loaded, error] = Font.useFonts({
+        'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
+      });
+    
+  const insets = useSafeAreaInsets();
+  const [selectedDay, setSelectedDay] = useState('Vendredi');
+  const events = eventData[selectedDay];
+  const { positionedEvents, columnCount } = assignColumns(events);
 
-  const [selectedDayId, setSelectedDayId] = useState<string>('2025-07-04'); // default day selected
-  const navigation = useNavigation<NavigationProps>(); // used to navigate to other screen when clicking on touchable
-
-
-  /**
-   * define the "Events" array with the same date as in "days" as key, and "Event" as value
-   */
-  const events: Events = {
-    '2025-07-04': [
-      { id: 1, startTime: '21:00', endTime: '22:00', artistName: 'Happy Guru', musicStyle: 'HOUSE / DISCO / FUNK', bgColor: '#053688' },
-      { id: 2, startTime: '22:00', endTime: '23:00', artistName: 'Le B', musicStyle: 'HOUSE MÉLODIQUE / TRANSE / ITALO DISCO', bgColor: '#053688' },
-      { id: 3, startTime: '23:00', endTime: '00:00', artistName: 'Pryme', musicStyle: 'UK SPEED GARAGE', bgColor: '#053688' },
-      { id: 4, startTime: '00:00', endTime: '01:00', artistName: 'maffia fora', musicStyle: 'HARDHOUSE / BASS MUSIC / RAP / ÉLECTRO HOUSE / GLOBAL DANCEFLOOR', bgColor: '#053688' },
-      { id: 5, startTime: '01:00', endTime: '02:00', artistName: 'Mino', musicStyle: 'MODERN TRANCE / GROOVE / HARDGROOVE', bgColor: '#053688' },
-      { id: 6, startTime: '02:00', endTime: '03:00', artistName: 'Clemm', musicStyle: 'TRANCE 90\'S - 20\'S', bgColor: '#053688' },
-      { id: 7, startTime: '03:00', endTime: '04:00', artistName: 'Nott', musicStyle: 'EURODANCE / TECHNO', bgColor: '#053688' },
-      { id: 8, startTime: '04:00', endTime: '05:00', artistName: 'LOUL', musicStyle: 'TECHNO / TRANCE', bgColor: '#053688' },
-      { id: 9, startTime: '05:00', endTime: '06:00', artistName: 'Photon', musicStyle: 'ACID TECHNO / ACID TRANCE', bgColor: '#053688' },
-    ],
-    '2025-07-05': [
-      { id: 10, startTime: '14:00', endTime: '15:00', artistName: 'JAM Session', musicStyle: 'JAM SESSION', bgColor: '#053688' },
-      { id: 11, startTime: '15:00', endTime: '16:00', artistName: 'NiniDJ', musicStyle: '', bgColor: '#053688' },
-      { id: 12, startTime: '16:00', endTime: '17:00', artistName: 'HCC', musicStyle: '', bgColor: '#053688' },
-      { id: 13, startTime: '17:00', endTime: '18:00', artistName: 'Léo', musicStyle: 'D&B WORKOUT', bgColor: '#053688' },
-      { id: 14, startTime: '18:00', endTime: '19:00', artistName: 'Lemon Kid', musicStyle: 'HOUSE', bgColor: '#053688' },
-      { id: 15, startTime: '19:00', endTime: '20:00', artistName: '', musicStyle: 'HOUSE', bgColor: '#053688' },
-      { id: 16, startTime: '21:00', endTime: '22:00', artistName: 'Roger Federave', musicStyle: 'DISCO HOUSE, DISCO, EURODANCE 90\'S, COMMERCIAL, TECHNO/TRANCE', bgColor: '#053688' },
-      { id: 17, startTime: '22:00', endTime: '23:00', artistName: 'D R O V E', musicStyle: 'RAP', bgColor: '#053688' },
-      { id: 18, startTime: '23:00', endTime: '00:30', artistName: 'ALINK B2B CD ROM', musicStyle: 'HOUSE / TECHNO', bgColor: '#053688' },
-      { id: 19, startTime: '00:30', endTime: '01:30', artistName: 'Dj Thibald', musicStyle: 'HARD HOUSE / 90S TRANCE', bgColor: '#053688' },
-      { id: 20, startTime: '01:30', endTime: '03:00', artistName: 'Virgin Mobile b2b Forfait Bloqué', musicStyle: 'TECHNO', bgColor: '#053688' },
-      { id: 21, startTime: '03:00', endTime: '04:00', artistName: 'Raymzer', musicStyle: 'TECHNO', bgColor: '#053688' },
-      { id: 22, startTime: '04:00', endTime: '05:00', artistName: 'Rstef', musicStyle: 'BOUNCE', bgColor: '#053688' },
-      { id: 23, startTime: '05:00', endTime: '06:00', artistName: 'JUST KA', musicStyle: 'HARD TECHNO / TECHNO GROOVY', bgColor: '#053688' }
-    ],
-    // '2024-07-05': [ //2024 in order to avoid duplicate with same day in 2025
-    //   { id: 13, startTime: '21:00', endTime:'22:00', artistName: 'R1', musicStyle: 'Tech-House', bgColor:'#053688'},
-    //   { id: 14, startTime: '22:00', endTime:'23:00', artistName: 'Drove', musicStyle: 'Rap', bgColor:'#f28d11'},
-    //   { id: 15, startTime: '23:00', endTime:'00:30', artistName: 'Cd-Rom x yAs (Label Affaire)', musicStyle: 'Tech-House', bgColor:'#fc87bb'},
-    //   { id: 16, startTime: '00:30', endTime:'01:30', artistName: 'Clover x Paradis Fiscal', musicStyle: 'Tech-House', bgColor:'#053688'},
-    //   { id: 17, startTime: '01:30', endTime:'02:30', artistName: 'LX 42', musicStyle: 'Tech-House', bgColor:'#f28d11'},
-    //   { id: 18, startTime: '02:30', endTime:'03:30', artistName: 'Rawza', musicStyle: 'Tech-House', bgColor:'#fc87bb'},
-    //   { id: 19, startTime: '03:30', endTime:'04:30', artistName: 'Raymzer', musicStyle: 'Tech-House', bgColor:'#053688'},
-    //   { id: 20, startTime: '04:30', endTime:'06:00', artistName: 'Soapmalin', musicStyle: 'Tech-House', bgColor:'#f28d11'},
-    // ],
-  };
-  
-  /**
-  * We select only on of the date of the days array and display the according value of the Events array 
-  */
-  const selectedEvents: Event[] = events[selectedDayId] || [];
-
-
-  // define the Header function
-  //// The touchable on press enable to modify the selectedDayId and so key and value of "Events" 
-  const renderDayHeader = () => (
-    <View style={styles.cardHeader}>
-      <View style={styles.daysContainer}>
-        {days.map((day, index) => {
-          const isActive =
-          selectedDayId === day.id;
-          return (
-            <TouchableWithoutFeedback key={index} onPress={() => setSelectedDayId(day.id)}>
-              <View style={[styles.dayItem, isActive && { backgroundColor: '#ffffff', borderColor: '#0b8c35', borderWidth: 5,},]}>
-                <Text style={[styles.dayWeekday, isActive && { color: '#0b8c35' },]}>
-                  {day.weekday}
-                </Text>
-                {/* <Text style={[styles.dayDate, isActive && { color: '#F2AA52' },]}>
-                  {moment(day.id).format('DD MMM')}
-                </Text> */}
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        })}
-      </View>
-   </View>
-  )
-  
-  // define the calendar function
-  /// The touchable on press enable to navigate to the artist selected with a param "id of artist"
-  const renderCalendarItem = ({ item }:{item: typeof Event}) => (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate("artists", { focusArtist: item.id })}>
-
-      <View style={styles.eventItem}>
-        {/* <View style={styles.timelineContainer}> */}
-          {/* <View style={styles.timelineDot} /> */}
-          {/* <View style={styles.timelineLine} /> */}
-        {/* </View> */}
-
-        <View style={styles.eventContent}>
-          <View style={styles.eventHours}>
-            <Text style={styles.startTime}>{item.startTime}</Text>
-            <Text style={styles.endTime}>{item.endTime}</Text>
-          </View>
-
-          <View style={[styles.card,{backgroundColor:item.bgColor}]}>
-            <Text style={styles.cardTitle}>{item.artistName}</Text>
-            <Text style={styles.cardSubTitle}>{item.musicStyle}</Text>
-          </View>
-          <View style={[styles.card,{backgroundColor : '#f28d11'}]}>
-            <Text style={styles.cardTitle}>{item.artistName}</Text>
-            <Text style={styles.cardSubTitle}>{item.musicStyle}</Text>
-          </View>
-          <View style={[styles.card,{backgroundColor : '#fc87bb'}]}>
-            <Text style={styles.cardTitle}>{item.artistName}</Text>
-            <Text style={styles.cardSubTitle}>{item.musicStyle}</Text>
-          </View>
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
-  );
+  const minHour = 17;
+  const maxHour = 30;
+  const timeSlots = [];
+  for (let hour = minHour; hour <= maxHour; hour++) {
+    timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
+    timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
+  }
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
-      <ScreenTitle>LINE UP</ScreenTitle>
-      <View style={styles.container}>
-        {renderDayHeader()}
-        <FlatList
-          contentContainerStyle={{ paddingHorizontal: 8, paddingTop: 10 }}
-          data={selectedEvents}
-          // ListHeaderComponent={renderDayHeader}
-          // stickyHeaderIndices={[0]}
-          renderItem={renderCalendarItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </View>
-      </SafeAreaView>
-    
+        <ScreenTitle>LINE UP</ScreenTitle>
+        <View style={{ flex: 1, paddingTop: insets.top }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 8 }}>
+            {DAYS.map(day => (
+            <Pressable key={day} onPress={() => setSelectedDay(day)} style={{ marginHorizontal: 8, backgroundColor : '#fff', padding : 5, borderRadius : 8, borderWidth : 5, borderColor: selectedDay === day ? '#0b8c35' : '#5a9adb'  }}>
+                <Text style={{ color : selectedDay === day ? '#0b8c35' : '#6d6161', fontSize: 16, fontFamily: 'Oliver-Regular' }}>{day}</Text>
+            </Pressable>
+            ))}
+        </View>
+        <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+            <View style={{ flexDirection: 'row' }}>
+            <View style={{ width: 60 }}>
+                {timeSlots.map((time, idx) => (
+                <View key={idx} style={{ height: 40, justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 12 }}>{time}</Text>
+                </View>
+                ))}
+            </View>
+            <View style={{ flex: 1, position: 'relative' }}>
+                {positionedEvents.sort((a, b) => a.column - b.column).map(event => {
+                const start = timeToMinutes(event.startTime);
+                const end = timeToMinutes(event.endTime);
+                const top = (start - minHour * 60) * (40 / 30);
+                const height = (end - start) * (40 / 30);
+                const width = `${100 / columnCount}%`;
+                const left = `${(100 / columnCount) * event.column}%`;
+                return (
+                    <View
+                    key={event.id}
+                    style={{
+                        position: 'absolute',
+                        top,
+                        left,
+                        width,
+                        height,
+                        backgroundColor: event.bgColor,
+                        padding: 4,
+                        borderRadius: 6,
+                        borderWidth: event.category === 'artist' ? 2 : 0,
+                        borderColor: event.category === 'artist' ? 'black' : 'transparent'
+                    }}
+                    >
+                    <Text style={{ fontWeight: 'bold', fontSize: 12, color : '#fff' }}>{event.title}</Text>
+                    <Text style={{ fontSize: 10, color : '#fff' }}>{event.description}</Text>
+                    </View>
+                );
+                })}
+            </View>
+            </View>
+        </ScrollView>
+        </View>
+    </SafeAreaView>
   );
-  
 };
 
-/*
-How it is going to look like, color and shapes 
-*/
+export default ScheduleScreen;
+
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
-    flex : 1,
+    flex: 1,
     backgroundColor: '#5a9adb',
-    marginBottom : 50,
+    marginBottom: 50,
   },
   container: {
-    flex:1,
-    // paddingTop: 16,
-    backgroundColor: '#5a9adb'
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    marginLeft:16
-  },
-  cardHeader: {
-    // flex:1,
-    // position: 'fixed',
+    flex: 1,
     backgroundColor: '#5a9adb',
-    marginHorizontal: -5,
-    // borderRadius: 18,
-    // shadowColor: '#000',
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.2,
-    // shadowRadius: 4,
-    elevation: 6,
-    marginTop: 0,
-    // marginBottom: 5,
-    // padding: 18,
-    // paddingHorizontal: 8,
-    paddingVertical: 12,
+    // paddingTop: 50,
   },
-  card: {
-    flex:1,
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 4,
-    marginBottom: 5,
-    marginHorizontal: 5,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+  scrollView: {
+    paddingHorizontal: 10,
   },
-  daysContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 16,
-    marginBottom: 5,
-  },
-  dayItem: {
-    width: 250,
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    borderWidth: 0,
-    // borderColor: '#F2784B',
-    // padding: 10,
-    backgroundColor: '#F9F2EA',
-  },
-  screenTitle: {
-    fontFamily: 'Oliver-Regular',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 100,
-    fontWeight: '500',
-    color: '#FFFFFF',
-    marginTop: 20,
-  },
-  dayWeekday: {
-    fontFamily: 'Oliver-Regular',
-    fontSize: 50,
-    fontWeight: '500',
-    color: '#6d6161',
-  },
-  dayDate: {
-    fontSize: 15,
-    fontWeight: '600',
-    color: '#F2784B',
-  },
-  eventItem: {
-    flex:1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  timelineContainer: {
-    width: 30,
-    alignItems: 'center',
-  },
-  timelineDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: '#ff7f50',
-    marginBottom: 8,
-  },
-  timelineLine: {
-    flex: 1,
-    width: 2,
-    backgroundColor: '#ff7f50',
-  },
-  eventContent: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    // marginLeft: 8,
-  },
-  eventHours: {
-    marginRight: 8,
-    alignItems: 'flex-end',
-  },
-  startTime: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 4,
-  },
-  endTime: {
-    fontSize: 16,
-  },
-  cardTitle: {
-    fontSize: 18,
-    color: '#ffffff',
-    marginBottom: 4,
-  },
-  cardSubTitle: {
-    fontSize: 14,
-    color: '#ffffff',
-    marginBottom: 8,
-  },
-});
-
-export default ScheduleScreen;
+})

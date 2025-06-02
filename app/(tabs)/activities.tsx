@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#545454',
     flexShrink: 1,
-    textAlign :'justify'
+    textAlign :'left'
     
   },
 });
