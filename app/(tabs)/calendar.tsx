@@ -234,12 +234,12 @@ const ScheduleScreen = () => {
                           fontSize: 12,
                           color: '#fff',
                         }}
-                        numberOfLines={1}
+                        numberOfLines={3}
                         ellipsizeMode="tail"
                       >
                         {event.title}
                       </Text>
-                      <Text
+                      {/* <Text
                         style={{
                           fontSize: 10,
                           color: '#fff',
@@ -248,7 +248,7 @@ const ScheduleScreen = () => {
                         ellipsizeMode="tail"
                       >
                         {event.description}
-                      </Text>
+                      </Text> */}
                     </View>
                   );
                 })}
