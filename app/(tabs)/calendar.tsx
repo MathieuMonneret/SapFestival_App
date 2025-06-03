@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import ScreenTitle from '@/components/screenTitle';
 import * as Font from 'expo-font';
-import { View, Text, ScrollView, SafeAreaView, Pressable, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { format, parse, isAfter, isBefore } from 'date-fns';
 
 const DAYS = ['Vendredi', 'Samedi'];
+const SLOT_HEIGHT = 40; // hauteur pour 30 minutes
 
 const eventData = {
   Vendredi: [
@@ -38,103 +45,21 @@ const eventData = {
   { id: 21, startTime: '03:00', endTime: '04:00', title: 'Raymzer', description: 'TECHNO', bgColor: '#053688', category: 'artist' },
   { id: 22, startTime: '04:00', endTime: '05:00', title: 'Rstef', description: 'BOUNCE', bgColor: '#053688', category: 'artist' },
   { id: 23, startTime: '05:00', endTime: '06:00', title: 'JUST KA', description: 'HARD TECHNO / TECHNO GROOVY', bgColor: '#053688', category: 'artist' },
-  {
-    id: 28,
-    startTime: '12:00',
-    endTime: '13:00',
-    title: 'Yoga Saucisson',
-    description: "Ramène ton matelas et viens bouger ton corps dans la boue. Si tu tiens la position plus de 30 s, tu repars avec ton morceau de sauciflard.",
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 29,
-    startTime: '12:00',
-    endTime: '19:00',
-    title: 'Stand Animation',
-    description: '',
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 30,
-    startTime: '14:00',
-    endTime: '17:00',
-    title: 'Tournoi Volley',
-    description: '',
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 31,
-    startTime: '15:00',
-    endTime: '18:00',
-    title: 'DIY Carte Postale / Lino',
-    description: "Tu veux repartir avec un souvenir ? Viens imprimer une petite gravure sur le médium de ton choix : papier, textile.",
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 32,
-    startTime: '16:00',
-    endTime: '19:00',
-    title: 'Atelier Paillettes',
-    description: 'Viens te transformer en fée <3',
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 33,
-    startTime: '17:00',
-    endTime: '18:00',
-    title: 'Aérobic sur musique',
-    description: '',
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 34,
-    startTime: '18:00',
-    endTime: '19:00',
-    title: 'Géo BLIND',
-    description: "Fan de géographie, backpacker endurci, viens te challenger au GEO Blind. Des départements français au tour du monde, tente ta chance dans le voyage du SAP.",
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 35,
-    startTime: '18:00',
-    endTime: '19:00',
-    title: 'Culture G',
-    description: "Tu sais ce qu'on dit : la culture c'est comme la confiture, moins t'en as plus tu l'étales alors viens te tartiner.",
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 36,
-    startTime: '18:00',
-    endTime: '20:00',
-    title: 'Cercle de Parole',
-    description: "Tu cherches un espace humain pour avoir des conversations profondes.",
-    bgColor: '#f28d11',
-    category: 'activity'
-  },
-  {
-    id: 37,
-    startTime: '21:00',
-    endTime: '21:30',
-    title: 'BINGO',
-    description: "BINGO !!!! Et le vrai cette année :)",
-    bgColor: '#f28d11',
-    category: 'activity'
-  }
-
+  { id: 28, startTime: '12:00', endTime: '13:00', title: 'Yoga Saucisson', description: "Ramène ton matelas et viens bouger ton corps dans la boue. Si tu tiens la position plus de 30 s, tu repars avec ton morceau de sauciflard.", bgColor: '#f28d11', category: 'activity' },
+  { id: 29, startTime: '12:00', endTime: '19:00', title: 'Stand Animation', description: '', bgColor: '#f28d11', category: 'activity' },
+  { id: 30, startTime: '14:00', endTime: '17:00', title: 'Tournoi Volley', description: '', bgColor: '#f28d11', category: 'activity' },
+  { id: 31, startTime: '15:00', endTime: '18:00', title: 'DIY Carte Postale / Lino', description: "Tu veux repartir avec un souvenir ? Viens imprimer une petite gravure sur le médium de ton choix : papier, textile.", bgColor: '#f28d11', category: 'activity' },
+  { id: 32, startTime: '16:00', endTime: '19:00', title: 'Atelier Paillettes', description: 'Viens te transformer en fée <3', bgColor: '#f28d11', category: 'activity' },
+  { id: 33, startTime: '17:00', endTime: '18:00', title: 'Aérobic sur musique', description: '', bgColor: '#f28d11', category: 'activity' },
+  { id: 34, startTime: '18:00', endTime: '19:00', title: 'Géo BLIND', description: "Fan de géographie, backpacker endurci, viens te challenger au GEO Blind. Des départements français au tour du monde, tente ta chance dans le voyage du SAP.", bgColor: '#f28d11', category: 'activity' },
+  { id: 35, startTime: '18:00', endTime: '19:00', title: 'Culture G', description: "Tu sais ce qu'on dit : la culture c'est comme la confiture, moins t'en as plus tu l'étales alors viens te tartiner.", bgColor: '#f28d11', category: 'activity' },
+  { id: 36, startTime: '18:00', endTime: '20:00', title: 'Cercle de Parole', description: "Tu cherches un espace humain pour avoir des conversations profondes.", bgColor: '#f28d11', category: 'activity' },
+  { id: 37, startTime: '21:00', endTime: '21:30', title: 'BINGO', description: "BINGO !!!! Et le vrai cette année :)", bgColor: '#f28d11', category: 'activity' },
 ],
 };
 
 const timeToMinutes = (time: string) => {
   const [hours, minutes] = time.split(':').map(Number);
-  // Si l'heure est entre 0h et 5h, on considère que c'est dans la nuit suivante
   if (hours < 6) return (24 + hours) * 60 + minutes;
   return hours * 60 + minutes;
 };
@@ -143,7 +68,6 @@ const assignColumns = (events: any[]) => {
   const sortedEvents = [...events].sort((a, b) => {
     const timeDiff = timeToMinutes(a.startTime) - timeToMinutes(b.startTime);
     if (timeDiff !== 0) return timeDiff;
-    // Priorité aux artistes pour les mettre à gauche
     if (a.category === 'artist' && b.category !== 'artist') return -1;
     if (b.category === 'artist' && a.category !== 'artist') return 1;
     return 0;
@@ -154,7 +78,13 @@ const assignColumns = (events: any[]) => {
   for (const event of sortedEvents) {
     let placed = false;
     for (let i = 0; i < columns.length; i++) {
-      if (!columns[i].some(e => timeToMinutes(e.endTime) > timeToMinutes(event.startTime) && timeToMinutes(e.startTime) < timeToMinutes(event.endTime))) {
+      if (
+        !columns[i].some(
+          e =>
+            timeToMinutes(e.endTime) > timeToMinutes(event.startTime) &&
+            timeToMinutes(e.startTime) < timeToMinutes(event.endTime)
+        )
+      ) {
         columns[i].push(event);
         placed = true;
         break;
@@ -171,21 +101,37 @@ const assignColumns = (events: any[]) => {
       positionedEvents.push({ ...event, column: i });
     }
   }
+
   return { positionedEvents, columnCount: columns.length };
 };
 
 const ScheduleScreen = () => {
+  const [loaded, error] = Font.useFonts({
+    'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
+  });
 
-    const [loaded, error] = Font.useFonts({
-        'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
-      });
-    
   const insets = useSafeAreaInsets();
   const [selectedDay, setSelectedDay] = useState('Vendredi');
   const events = eventData[selectedDay];
   const { positionedEvents, columnCount } = assignColumns(events);
 
-  const minHour = 10;
+  // Étendre horizontalement chaque carte tant que pas de conflit
+  const extendedEvents = positionedEvents.map(event => {
+    let span = 1;
+    for (let i = event.column + 1; i < columnCount; i++) {
+      const overlapping = positionedEvents.some(
+        e =>
+          e.column === i &&
+          timeToMinutes(e.startTime) < timeToMinutes(event.endTime) &&
+          timeToMinutes(e.endTime) > timeToMinutes(event.startTime)
+      );
+      if (overlapping) break;
+      span++;
+    }
+    return { ...event, span };
+  });
+
+  const minHour = selectedDay === 'Vendredi' ? 17 : 10;
   const maxHour = 30;
   const timeSlots = [];
   for (let hour = minHour; hour <= maxHour; hour++) {
@@ -195,36 +141,80 @@ const ScheduleScreen = () => {
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
-        <ScreenTitle>LINE UP</ScreenTitle>
-        <View style={{ flex: 1, paddingTop: insets.top }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 8 }}>
-            {DAYS.map(day => (
-            <Pressable key={day} onPress={() => setSelectedDay(day)} style={{ marginHorizontal: 8, backgroundColor : '#fff', padding : 5, borderRadius : 8, borderWidth : 5, borderColor: selectedDay === day ? '#0b8c35' : '#5a9adb'  }}>
-                <Text style={{ color : selectedDay === day ? '#0b8c35' : '#6d6161', fontSize: 16, fontFamily: 'Oliver-Regular' }}>{day}</Text>
+      <ScreenTitle>LINE UP</ScreenTitle>
+      <View style={{ flex: 1, paddingTop: insets.top }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            padding: 8,
+          }}
+        >
+          {DAYS.map(day => (
+            <Pressable
+              key={day}
+              onPress={() => setSelectedDay(day)}
+              style={{
+                marginHorizontal: 8,
+                backgroundColor: '#fff',
+                padding: 5,
+                borderRadius: 8,
+                borderWidth: 5,
+                borderColor:
+                  selectedDay === day ? '#0b8c35' : '#5a9adb',
+              }}
+            >
+              <Text
+                style={{
+                  color:
+                    selectedDay === day ? '#0b8c35' : '#6d6161',
+                  fontSize: 16,
+                  fontFamily: 'Oliver-Regular',
+                }}
+              >
+                {day}
+              </Text>
             </Pressable>
-            ))}
+          ))}
         </View>
-        <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-            <View style={{ flexDirection: 'row' }}>
+
+        <ScrollView contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: 10 }}>
+          <View style={{ flexDirection: 'row' }}>
+            {/* Colonne horaires */}
             <View style={{ width: 60 }}>
-                {timeSlots.map((time, idx) => (
-                <View key={idx} style={{ height: 40, justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 12 }}>{time}</Text>
+              {timeSlots.map((time, idx) => (
+                <View
+                  key={idx}
+                  style={{
+                    height: SLOT_HEIGHT,
+                    justifyContent: 'center',
+                    // borderBottomColor : '#000',
+                    // borderBottomWidth : 2
+                  }}
+                >
+                  <Text style={{ fontSize: 12, color : '#fff' }}>{time}</Text>
                 </View>
-                ))}
+              ))}
             </View>
+
+            {/* Planning principal */}
             <View style={{ flex: 1, position: 'relative' }}>
-                {positionedEvents.sort((a, b) => a.column - b.column).map(event => {
-                const start = timeToMinutes(event.startTime);
-                const end = timeToMinutes(event.endTime);
-                const top = (start - minHour * 60) * (40 / 30);
-                const height = (end - start) * (40 / 30);
-                const width = `${100 / columnCount}%`;
-                const left = `${(100 / columnCount) * event.column}%`;
-                return (
+              {extendedEvents
+                .sort((a, b) => a.column - b.column)
+                .map(event => {
+                  const start = timeToMinutes(event.startTime);
+                  const end = timeToMinutes(event.endTime);
+                  const top =
+                    (start - minHour * 60) * (SLOT_HEIGHT / 30) + 20;
+                  const height =
+                    (end - start) * (SLOT_HEIGHT / 30);
+                  const width = `${(100 / columnCount) * event.span}%`;
+                  const left = `${(100 / columnCount) * event.column}%`;
+
+                  return (
                     <View
-                    key={event.id}
-                    style={{
+                      key={event.id}
+                      style={{
                         position: 'absolute',
                         top,
                         left,
@@ -233,21 +223,39 @@ const ScheduleScreen = () => {
                         backgroundColor: event.bgColor,
                         padding: 4,
                         borderRadius: 6,
-                        // borderWidth: event.category === 'artist' ? 2 : 0,
-                        // borderColor: event.category === 'artist' ? 'black' : 'transparent'
                         borderWidth: 2,
-                        borderColor: '#5a9adb'
-                    }}
+                        borderColor: '#5a9adb',
+                        overflow: 'hidden',
+                      }}
                     >
-                    <Text style={{ fontWeight: 'bold', fontSize: 12, color : '#fff' }}>{event.title}</Text>
-                    <Text style={{ fontSize: 10, color : '#fff' }}>{event.description}</Text>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: 12,
+                          color: '#fff',
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {event.title}
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 10,
+                          color: '#fff',
+                        }}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {event.description}
+                      </Text>
                     </View>
-                );
+                  );
                 })}
             </View>
-            </View>
+          </View>
         </ScrollView>
-        </View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -260,12 +268,4 @@ const styles = StyleSheet.create({
     backgroundColor: '#5a9adb',
     marginBottom: 50,
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#5a9adb',
-    // paddingTop: 50,
-  },
-  scrollView: {
-    paddingHorizontal: 10,
-  },
-})
+});
