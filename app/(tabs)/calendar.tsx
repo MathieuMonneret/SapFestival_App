@@ -37,6 +37,7 @@ const eventData = {
   { id: 13, startTime: '17:00', endTime: '18:00', title: 'Léo', description: 'D&B WORKOUT', bgColor: '#053688', category: 'artist' },
   { id: 14, startTime: '18:00', endTime: '19:00', title: 'Lemon Kid', description: 'HOUSE', bgColor: '#053688', category: 'artist' },
   { id: 15, startTime: '19:00', endTime: '20:00', title: '', description: 'HOUSE', bgColor: '#053688', category: 'artist' },
+  { id: 15, startTime: '20:00', endTime: '21:00', title: '', description: '', bgColor: '#053688', category: 'artist' },
   { id: 16, startTime: '21:00', endTime: '22:00', title: 'Roger Federave', description: 'DISCO HOUSE, DISCO, EURODANCE 90\'S, COMMERCIAL, TECHNO/TRANCE', bgColor: '#053688', category: 'artist' },
   { id: 17, startTime: '22:00', endTime: '23:00', title: 'D R O V E', description: 'RAP', bgColor: '#053688', category: 'artist' },
   { id: 18, startTime: '23:00', endTime: '00:30', title: 'ALINK B2B CD ROM', description: 'HOUSE / TECHNO', bgColor: '#053688', category: 'artist' },
@@ -60,7 +61,7 @@ const eventData = {
 
 const timeToMinutes = (time: string) => {
   const [hours, minutes] = time.split(':').map(Number);
-  if (hours < 6) return (24 + hours) * 60 + minutes;
+  if (hours < 7) return (24 + hours) * 60 + minutes;
   return hours * 60 + minutes;
 };
 
@@ -134,10 +135,12 @@ const ScheduleScreen = () => {
   const minHour = selectedDay === 'Vendredi' ? 17 : 10;
   const maxHour = 30;
   const timeSlots = [];
-  for (let hour = minHour; hour <= maxHour; hour++) {
-    timeSlots.push(`${hour.toString().padStart(2, '0')}:00`);
-    timeSlots.push(`${hour.toString().padStart(2, '0')}:30`);
-  }
+  for (let hour = minHour; hour < maxHour; hour++) {
+    const displayHour = hour % 24;
+    timeSlots.push(`${displayHour.toString().padStart(2, '0')}:00`);
+    timeSlots.push(`${displayHour.toString().padStart(2, '0')}:30`);
+  };
+  timeSlots.push(`${(6).toString().padStart(2, '0')}:00`);
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
@@ -177,8 +180,12 @@ const ScheduleScreen = () => {
             </Pressable>
           ))}
         </View>
-
-        <ScrollView contentContainerStyle={{ paddingBottom: 100, paddingHorizontal: 10 }}>
+        <View style={{ flexDirection: 'row', justifyContent : 'center'}}>
+          <Text style={{ color:'#053688', fontSize: 14, fontFamily: 'Oliver-Regular', marginHorizontal : 10 }}>ARTISTS</Text>
+          <Text style={{ color:'#f28d11', fontSize: 14, fontFamily: 'Oliver-Regular',marginHorizontal : 10 }}>ACTIVITIES</Text>
+          <Text style={{ color:'#fc87bb', fontSize: 14, fontFamily: 'Oliver-Regular', marginHorizontal : 10}}>MEALS</Text>
+        </View>
+        <ScrollView contentContainerStyle={{ paddingBottom: 50, paddingHorizontal: 10 }}>
           <View style={{ flexDirection: 'row' }}>
             {/* Colonne horaires */}
             <View style={{ width: 60 }}>

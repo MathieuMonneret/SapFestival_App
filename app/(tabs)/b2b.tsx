@@ -33,7 +33,7 @@ const HomeScreen = () => {
       <View style={styles.container}>
         {cards.map((card, index) => (
           <View key={index} style={styles.card}>
-            <Ionicons name={card.icon} size={48} color="#F2784B" />
+            <Ionicons name={card.icon} size={48} color="#F2784B" style={{paddingBottom : 10}} />
             <FullScreenImageModal
               buttonText={card.title}
               imageSource={card.image}

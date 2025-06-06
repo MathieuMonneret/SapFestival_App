@@ -33,7 +33,7 @@ const AboutScreen = () => {
           </Text>
         </View>
 
-        <View style={styles.card}>
+        {/* <View style={styles.card}>
           <Ionicons name="fast-food-outline" size={48} color="#5a9adb" style={styles.cardIcon} />
           <Text style={styles.cardTitle}>Menu & Boissons</Text>
           <Text style={styles.cardText}>
@@ -48,7 +48,7 @@ const AboutScreen = () => {
             buttonText="Voir le menu complet"
             imageSource={require('@/assets/images/menu-food.png')}
           />
-        </View>
+        </View> */}
         <View style={{ height: 50 }} />
       </ScrollView>
     </SafeAreaView>

@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
   },
   scrollContent: {
-    paddingBottom: 100,
+    paddingBottom: 50,
   },
   scrollToTopButton: {
     position: 'absolute',

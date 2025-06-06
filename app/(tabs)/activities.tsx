@@ -68,7 +68,7 @@ export default function ActivityScreen() {
   {
     id: 5,
     name: 'Stand animation',
-    type: 'STAND ANIMATION',
+    type: '',
     respo: 'JT',
     location: 'BAR',
     participation: '',
@@ -192,14 +192,14 @@ export default function ActivityScreen() {
           data={options}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={() => Alert.alert(`${item.name}`, item.info || 'Aucune info supplémentaire')}
-              activeOpacity={0.8}
-            >
+            // <TouchableOpacity
+            //   onPress={() => Alert.alert(`${item.name}`, item.info || 'Aucune info supplémentaire')}
+            //   activeOpacity={0.8}
+            // >
               <View style={styles.card}>
-                <View style={[styles.cardContent, {flexWrap : 'nowrap'}]}>
+                <View style={[styles.cardContent, {flexWrap : 'nowrap',flexDirection:'row'}]}>
                   <Text style={styles.name}>{item.name}</Text>
-                  <Text style={[styles.type, { color: item.color }]}>{item.type}</Text>
+                  <Text style={[styles.type, { color: item.color }]}>{item.type.toUpperCase()}</Text>
                 </View>
                 <View style={styles.cardContent}>
                   <Text style={styles.detail}>📅 {item.duration}</Text>
@@ -219,7 +219,7 @@ export default function ActivityScreen() {
                   </View>
                 ) : null}
               </View>
-            </TouchableOpacity>
+            // </TouchableOpacity>
           )}
           contentContainerStyle={styles.list}
         />
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
   list: {
     paddingVertical: 20,
     alignItems: 'stretch',
+    paddingBottom : 50
   },
   card: {
     backgroundColor: '#F9F2EA',
@@ -258,7 +259,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',   // 👈 centre chaque carte individuellement
   },
   cardContent: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     alignItems : 'baseline',
