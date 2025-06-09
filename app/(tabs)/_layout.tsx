@@ -1,11 +1,11 @@
 import { Tabs } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 
 export default function TabLayout() {
 
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
   return (
     <Tabs

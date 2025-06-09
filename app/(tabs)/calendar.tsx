@@ -8,6 +8,8 @@ import {
   SafeAreaView,
   Pressable,
   StyleSheet,
+  Modal,
+  Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -56,6 +58,8 @@ const eventData = {
   { id: 35, startTime: '18:00', endTime: '19:00', title: 'Culture G', description: "Tu sais ce qu'on dit : la culture c'est comme la confiture, moins t'en as plus tu l'étales alors viens te tartiner.", bgColor: '#f28d11', category: 'activity' },
   { id: 36, startTime: '18:00', endTime: '20:00', title: 'Cercle de Parole', description: "Tu cherches un espace humain pour avoir des conversations profondes.", bgColor: '#f28d11', category: 'activity' },
   { id: 37, startTime: '21:00', endTime: '21:30', title: 'BINGO', description: "BINGO !!!! Et le vrai cette année :)", bgColor: '#f28d11', category: 'activity' },
+  { id: 38, startTime: '12:30', endTime: '15:00', title: 'REPAS', description: "", bgColor: '#fc87bb', category: 'meal' },
+  { id: 39, startTime: '19:00', endTime: '23:00', title: 'REPAS', description: "", bgColor: '#fc87bb', category: 'meal' },
 ],
 };
 
@@ -107,6 +111,19 @@ const assignColumns = (events: any[]) => {
 };
 
 const ScheduleScreen = () => {
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<any>(null);
+
+  const openModal = (event: any) => {
+    setSelectedEvent(event);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedEvent(null);
+  };
   const [loaded, error] = Font.useFonts({
     'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
   });
@@ -142,137 +159,123 @@ const ScheduleScreen = () => {
   };
   timeSlots.push(`${(6).toString().padStart(2, '0')}:00`);
 
+  
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <ScreenTitle>LINE UP</ScreenTitle>
       <View style={{ flex: 1, paddingTop: insets.top }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            padding: 8,
-          }}
-        >
+        <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 8 }}>
           {DAYS.map(day => (
             <Pressable
               key={day}
               onPress={() => setSelectedDay(day)}
-              style={{
-                marginHorizontal: 8,
-                backgroundColor: '#fff',
-                padding: 5,
-                borderRadius: 8,
-                borderWidth: 5,
-                borderColor:
-                  selectedDay === day ? '#0b8c35' : '#5a9adb',
-              }}
+              style={{ marginHorizontal: 8, backgroundColor: '#fff', padding: 5, borderRadius: 8, borderWidth: 5, borderColor: selectedDay === day ? '#0b8c35' : '#5a9adb' }}
             >
-              <Text
-                style={{
-                  color:
-                    selectedDay === day ? '#0b8c35' : '#6d6161',
-                  fontSize: 16,
-                  fontFamily: 'Oliver-Regular',
-                }}
-              >
-                {day}
-              </Text>
+              <Text style={{ color: selectedDay === day ? '#0b8c35' : '#6d6161', fontSize: 16, fontFamily: 'Oliver-Regular' }}>{day}</Text>
             </Pressable>
           ))}
         </View>
-        <View style={{ flexDirection: 'row', justifyContent : 'center'}}>
-          <Text style={{ color:'#053688', fontSize: 14, fontFamily: 'Oliver-Regular', marginHorizontal : 10 }}>ARTISTS</Text>
-          <Text style={{ color:'#f28d11', fontSize: 14, fontFamily: 'Oliver-Regular',marginHorizontal : 10 }}>ACTIVITIES</Text>
-          <Text style={{ color:'#fc87bb', fontSize: 14, fontFamily: 'Oliver-Regular', marginHorizontal : 10}}>MEALS</Text>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', marginBottom: 8 }}>
+          <Text style={{ color:'#fff', fontSize: 14, fontFamily: 'Oliver-Regular', marginHorizontal : 10, backgroundColor : '#053688', borderRadius: 5, padding: 5}}>ARTISTS</Text>
+          <Text style={{ color:'#fff', fontSize: 14, fontFamily: 'Oliver-Regular',marginHorizontal : 10, backgroundColor : '#f28d11', borderRadius: 5, padding: 5 }}>ACTIVITIES</Text>
+          <Text style={{ color:'#fff', fontSize: 14, fontFamily: 'Oliver-Regular', marginHorizontal : 10, backgroundColor : '#fc87bb', borderRadius: 5, padding: 5}}>MEALS</Text>
         </View>
         <ScrollView contentContainerStyle={{ paddingBottom: 50, paddingHorizontal: 10 }}>
           <View style={{ flexDirection: 'row' }}>
-            {/* Colonne horaires */}
             <View style={{ width: 60 }}>
               {timeSlots.map((time, idx) => (
-                <View
-                  key={idx}
-                  style={{
-                    height: SLOT_HEIGHT,
-                    justifyContent: 'center',
-                    // borderBottomColor : '#000',
-                    // borderBottomWidth : 2
-                  }}
-                >
+                <View key={idx} style={{ height: SLOT_HEIGHT, justifyContent: 'center' }}>
                   <Text style={{ fontSize: 12, color : '#fff' }}>{time}</Text>
                 </View>
               ))}
             </View>
-
-            {/* Planning principal */}
             <View style={{ flex: 1, position: 'relative' }}>
-              {extendedEvents
-                .sort((a, b) => a.column - b.column)
-                .map(event => {
-                  const start = timeToMinutes(event.startTime);
-                  const end = timeToMinutes(event.endTime);
-                  const top =
-                    (start - minHour * 60) * (SLOT_HEIGHT / 30) + 20;
-                  const height =
-                    (end - start) * (SLOT_HEIGHT / 30);
-                  const width = `${(100 / columnCount) * event.span}%`;
-                  const left = `${(100 / columnCount) * event.column}%`;
-
-                  return (
-                    <View
-                      key={event.id}
-                      style={{
-                        position: 'absolute',
-                        top,
-                        left,
-                        width,
-                        height,
-                        backgroundColor: event.bgColor,
-                        padding: 4,
-                        borderRadius: 6,
-                        borderWidth: 2,
-                        borderColor: '#5a9adb',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontWeight: 'bold',
-                          fontSize: 12,
-                          color: '#fff',
-                        }}
-                        numberOfLines={3}
-                        ellipsizeMode="tail"
-                      >
-                        {event.title}
-                      </Text>
-                      {/* <Text
-                        style={{
-                          fontSize: 10,
-                          color: '#fff',
-                        }}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        {event.description}
-                      </Text> */}
-                    </View>
-                  );
-                })}
+              {extendedEvents.sort((a, b) => a.column - b.column).map(event => {
+                const start = timeToMinutes(event.startTime);
+                const end = timeToMinutes(event.endTime);
+                const top = (start - minHour * 60) * (SLOT_HEIGHT / 30) + 20;
+                const height = (end - start) * (SLOT_HEIGHT / 30);
+                const width = `${(100 / columnCount) * event.span}%`;
+                const left = `${(100 / columnCount) * event.column}%`;
+                return (
+                  <Pressable
+                    key={event.id}
+                    onPress={() => openModal(event)}
+                    style={{ position: 'absolute', top, left, width, height, backgroundColor: event.bgColor, padding: 4, borderRadius: 6, borderWidth: 2, borderColor: '#5a9adb', overflow: 'hidden' }}
+                  >
+                    <Text style={{ fontWeight: 'bold', fontSize: 12, color: '#fff' }} numberOfLines={3} ellipsizeMode="tail">
+                      {event.title}
+                    </Text>
+                  </Pressable>
+                );
+              })}
             </View>
           </View>
         </ScrollView>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={closeModal}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              {selectedEvent && (
+                <>
+                  <Text style={styles.modalTitle}>{selectedEvent.title}</Text>
+                  <Text style={styles.modalTime}>{selectedEvent.startTime} - {selectedEvent.endTime}</Text>
+                  <Text style={styles.modalDescription}>{selectedEvent.description || "Pas de description."}</Text>
+                  <Pressable onPress={closeModal} style={styles.closeButton}>
+                    <Text style={{color:'#fff'}}>Fermer</Text>
+                  </Pressable>
+                </>
+              )}
+            </View>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
 };
 
-export default ScheduleScreen;
-
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex: 1,
     backgroundColor: '#5a9adb',
-    marginBottom: 50,
+    marginBottom : 50
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalTime: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  modalDescription: {
+    fontSize: 14,
+    marginBottom: 20,
+  },
+  closeButton: {
+    backgroundColor: '#0b8c35',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
   },
 });
+
+export default ScheduleScreen;
