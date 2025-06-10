@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Font from 'expo-font';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, SafeAreaView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FullScreenImageModal from '@/components/imageModal';
@@ -6,6 +7,10 @@ import ScreenTitle from '@/components/screenTitle';
 
 
 const AboutScreen = () => {
+  const [loaded, error] = Font.useFonts({
+    'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
+  });
+
   const handleMenuPress = () => {
     alert('Menu détaillé bientôt disponible!');
   };

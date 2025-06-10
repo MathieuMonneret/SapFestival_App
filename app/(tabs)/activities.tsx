@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as Font from 'expo-font';
 import {
   StyleSheet,
   Text,
@@ -15,6 +16,9 @@ import ScreenTitle from '@/components/screenTitle';
 const { width } = Dimensions.get('window');
 
 export default function ActivityScreen() {
+  const [loaded, error] = Font.useFonts({
+    'Oliver-Regular': require('../../assets/fonts/Oliver-Regular.otf'),
+  });
   const data = [
   {
     id: 1,
@@ -64,19 +68,6 @@ export default function ActivityScreen() {
     info: 'Ramène ton matelas et viens bouger ton corps dans la boue. Si tu tiens plus de 30s, tu repars avec un morceau de sauciflard.',
     siPluie: 'Dans la grande salle à l’intérieur / à l’étage',
     color: '#0b8c35',
-  },
-  {
-    id: 5,
-    name: 'Stand animation',
-    type: '',
-    respo: 'JT',
-    location: 'BAR',
-    participation: '',
-    icon: 'storefront-outline',
-    duration: 'Samedi 12h - 19h',
-    info: '',
-    siPluie: 'ok',
-    color : '#ffffff'
   },
   {
     id: 6,

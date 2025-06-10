@@ -22,7 +22,7 @@ const eventData = {
   { id: 202, startTime: '19:00', endTime: '22:00', title: 'Tournoi de Beer Pong + Stand animation', description: "T'as la descente facile, viens monter le coude au Beer Pong.", bgColor: '#f28d11', category: 'activity' },
   { id: 203, startTime: '21:00', endTime: '21:30', title: 'Élection Hymne', description: 'Et tu tapes tapes tapes, cet hymne que tu préfères. Et tu chantes chantes chantes ce refrain qui te plaît.', bgColor: '#f28d11', category: 'activity' },
   { id: 1, startTime: '21:00', endTime: '22:00', title: 'Happy Guru', description: 'HOUSE / DISCO / FUNK', bgColor: '#053688', category: 'artist' },
-  { id: 101, startTime: '21:00', endTime: '23:00', title: 'REPAS', description: 'KEBAB FRITE (voir menu)', bgColor: '#fc87bb', category: 'meal' },
+  { id: 101, startTime: '19:30', endTime: '22:00', title: 'REPAS', description: 'KEBAB FRITE (voir menu)', bgColor: '#fc87bb', category: 'meal' },
   { id: 2, startTime: '22:00', endTime: '23:00', title: 'Le B', description: 'HOUSE MÉLODIQUE / TRANSE / ITALO DISCO', bgColor: '#053688', category: 'artist' },
   { id: 3, startTime: '23:00', endTime: '00:00', title: 'Pryme', description: 'UK SPEED GARAGE', bgColor: '#053688', category: 'artist' },
   { id: 4, startTime: '00:00', endTime: '01:00', title: 'maffia fora', description: 'HARDHOUSE / BASS MUSIC / RAP / ÉLECTRO HOUSE / GLOBAL DANCEFLOOR', bgColor: '#053688', category: 'artist' },
@@ -49,7 +49,6 @@ const eventData = {
   { id: 22, startTime: '04:00', endTime: '05:00', title: 'Rstef', description: 'BOUNCE', bgColor: '#053688', category: 'artist' },
   { id: 23, startTime: '05:00', endTime: '06:00', title: 'JUST KA', description: 'HARD TECHNO / TECHNO GROOVY', bgColor: '#053688', category: 'artist' },
   { id: 28, startTime: '12:00', endTime: '13:00', title: 'Yoga Saucisson', description: "Ramène ton matelas et viens bouger ton corps dans la boue. Si tu tiens la position plus de 30 s, tu repars avec ton morceau de sauciflard.", bgColor: '#f28d11', category: 'activity' },
-  { id: 29, startTime: '12:00', endTime: '19:00', title: 'Stand Animation', description: '', bgColor: '#f28d11', category: 'activity' },
   { id: 30, startTime: '14:00', endTime: '17:00', title: 'Tournoi Volley', description: '', bgColor: '#f28d11', category: 'activity' },
   { id: 31, startTime: '15:00', endTime: '18:00', title: 'DIY Carte Postale / Lino', description: "Tu veux repartir avec un souvenir ? Viens imprimer une petite gravure sur le médium de ton choix : papier, textile.", bgColor: '#f28d11', category: 'activity' },
   { id: 32, startTime: '16:00', endTime: '19:00', title: 'Atelier Paillettes', description: 'Viens te transformer en fée <3', bgColor: '#f28d11', category: 'activity' },
@@ -58,8 +57,8 @@ const eventData = {
   { id: 35, startTime: '18:00', endTime: '19:00', title: 'Culture G', description: "Tu sais ce qu'on dit : la culture c'est comme la confiture, moins t'en as plus tu l'étales alors viens te tartiner.", bgColor: '#f28d11', category: 'activity' },
   { id: 36, startTime: '18:00', endTime: '20:00', title: 'Cercle de Parole', description: "Tu cherches un espace humain pour avoir des conversations profondes.", bgColor: '#f28d11', category: 'activity' },
   { id: 37, startTime: '21:00', endTime: '21:30', title: 'BINGO', description: "BINGO !!!! Et le vrai cette année :)", bgColor: '#f28d11', category: 'activity' },
-  { id: 38, startTime: '12:30', endTime: '15:00', title: 'REPAS', description: "", bgColor: '#fc87bb', category: 'meal' },
-  { id: 39, startTime: '19:00', endTime: '23:00', title: 'REPAS', description: "", bgColor: '#fc87bb', category: 'meal' },
+  { id: 38, startTime: '12:30', endTime: '15:00', title: 'REPAS', description: "POKE (voir menu)", bgColor: '#fc87bb', category: 'meal' },
+  { id: 39, startTime: '19:00', endTime: '23:00', title: 'REPAS', description: "PIZZA (voirmenu)", bgColor: '#fc87bb', category: 'meal' },
 ],
 };
 
