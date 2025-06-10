@@ -19,7 +19,7 @@ const SLOT_HEIGHT = 40; // hauteur pour 30 minutes
 const eventData = {
   Vendredi: [
   { id: 201, startTime: '17:00', endTime: '19:00', title: 'Mini jeux à l’arrivée', description: 'bang, noeud humain, énigme', bgColor: '#f28d11', category: 'activity' },
-  { id: 202, startTime: '19:00', endTime: '22:00', title: 'Tournoi de Beer Pong + Stand animation', description: "T'as la descente facile, viens monter le coude au Beer Pong.", bgColor: '#f28d11', category: 'activity' },
+  { id: 202, startTime: '19:00', endTime: '22:00', title: 'Tournoi Beer Pong', description: "T'as la descente facile, viens monter le coude au Beer Pong.", bgColor: '#f28d11', category: 'activity' },
   { id: 203, startTime: '21:00', endTime: '21:30', title: 'Élection Hymne', description: 'Et tu tapes tapes tapes, cet hymne que tu préfères. Et tu chantes chantes chantes ce refrain qui te plaît.', bgColor: '#f28d11', category: 'activity' },
   { id: 1, startTime: '21:00', endTime: '22:00', title: 'Happy Guru', description: 'HOUSE / DISCO / FUNK', bgColor: '#053688', category: 'artist' },
   { id: 101, startTime: '19:30', endTime: '22:00', title: 'REPAS', description: 'KEBAB FRITE (voir menu)', bgColor: '#fc87bb', category: 'meal' },
