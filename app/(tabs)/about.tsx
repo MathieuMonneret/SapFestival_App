@@ -27,11 +27,11 @@ const AboutScreen = () => {
           </Text>
           <Text style={[styles.rulesText,{fontWeight: 500}]}>
             Numéros d'urgence : {"\n"}
-            - 🚑 15 - SAMU {"\n"}
-            - 🚓 17 - POLICE SECOURS {"\n"}
-            - 🚒 18 - POMPIERS {"\n"}
-            - 💬 114 - Par SMS pour personnes malentendantes {"\n"}
-            - 👨‍🚒 +33666859998 - Pierre MOUSSA
+            {"\t"} 🚑 15 - SAMU {"\n"}
+            {"\t"} 🚓 17 - POLICE SECOURS {"\n"}
+            {"\t"} 🚒 18 - POMPIERS {"\n"}
+            {"\t"} 💬 114 - Par SMS pour personnes malentendantes {"\n"}
+            {"\t"} 👨‍🚒 +33666859998 - Pierre MOUSSA
             
           </Text>
         </View>
@@ -58,8 +58,31 @@ const AboutScreen = () => {
         <View style={styles.section}>
           <Text style={styles.cardTitle}>Horraires douches</Text>
           <Text style={styles.rulesText}>
-            - Samedi 10h - 20h {"\n"}
-            - Dimanche 10h - 14h {"\n"}
+            🚿 Samedi 10h - 20h {"\n"}
+            🚿 Dimanche 10h - 14h {"\n"}
+          </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.cardTitle}>Que mettre dans mon sac</Text>
+          <Text style={styles.rulesText}>
+            o Ton matériel de camping{"\n"}
+            o Ton plus beau sourire{"\n"}
+            o Ta gourde{"\n"}
+            o Des vêtements qui ne craignent rien{"\n"}
+            o Une tente de compétition{"\n"}
+            o Une lampe torche{"\n"}
+            o Une serviette{"\n"}
+            o Une trousse d’hygiène{"\n"}
+            o De l'antimoustique{"\n"}
+            o Crème solaire{"\n"}
+            o Un k-way{"\n"}
+            o Un pull, une polaire, des grosses chaussettes{"\n"}
+            o Un maillot de bain{"\n"}
+            o Ton chargeur{"\n"}
+            o Une casquette{"\n"}
+            o Des bouchons d’oreilles/casque anti bruit, masque, maximise ton confort pour la nuit{"\n"}
+            o Un tapis de yoga pour ne pas rater la meilleure activité du samedi{"\n"}
           </Text>
         </View>
 
