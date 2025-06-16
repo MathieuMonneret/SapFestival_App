@@ -19,6 +19,23 @@ const AboutScreen = () => {
     <SafeAreaView style={styles.safeAreaViewContainer}>
       <ScreenTitle>INFOS</ScreenTitle>
       <ScrollView style={styles.container}>
+
+        <View style={[styles.section,{ }]}>
+          <Text style={[styles.cardTitle, {fontWeight: 800, color : '#ff0f0f',textAlign : 'center' }]}>
+            🚨 EN CAS D'URGENCE 🚨{"\n"}
+            Protéger Alerter Secourir (PAS)
+          </Text>
+          <Text style={[styles.rulesText,{fontWeight: 500}]}>
+            Numéros d'urgence : {"\n"}
+            - 🚑 15 - SAMU {"\n"}
+            - 🚓 17 - POLICE SECOURS {"\n"}
+            - 🚒 18 - POMPIERS {"\n"}
+            - 💬 114 - Par SMS pour personnes malentendantes {"\n"}
+            - 👨‍🚒 +33666859998 - Pierre MOUSSA
+            
+          </Text>
+        </View>
+
         <View style={styles.section}>
           <Text style={styles.cardTitle}>Plan d'accès</Text>
           <Image
@@ -35,6 +52,14 @@ const AboutScreen = () => {
             - Respectez le silence sur le camping {"\n"}
             - Respectez les personnes et leurs consentement {"\n"}
             - Toute sortie est définitive.
+          </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.cardTitle}>Horraires douches</Text>
+          <Text style={styles.rulesText}>
+            - Samedi 10h - 20h {"\n"}
+            - Dimanche 10h - 14h {"\n"}
           </Text>
         </View>
 
@@ -89,7 +114,7 @@ const styles = StyleSheet.create({
   },
   mapImage: {
     width: '100%',
-    height: 200,
+    height: 300,
     borderRadius: 10,
   },
   rulesText: {
@@ -115,7 +140,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#5a9adb',
+    color: '#1d1d1d',
     marginBottom: 10,
   },
   cardText: {
