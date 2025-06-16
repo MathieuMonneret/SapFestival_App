@@ -77,7 +77,7 @@ export default function ActivityScreen() {
     location: '2 terrains volley (mêmes que l\'an dernier)',
     participation: 'inscription individuelle (équipes au pif)',
     icon: 'tennisball-outline',
-    duration: 'Samedi 14h - 17h',
+    duration: 'Samedi 14h - 16h30',
     info: '',
     siPluie: 'Décalé sinon annulé',
     color: '#0b8c35',
